@@ -28,13 +28,13 @@ add https://github.com/FrankErrickson/MimiFAIRv2.jl.git
 ### Running The Code
 There are three ways to run this code.
 
-First, you can reproduce an example analysis with two runs, a "no policy" run and a . 
+First, you can run a set of example runs with different model settings. 
 
-Alternatively, you can run the code for the NICE2020 model in two ways. The first uses the standard approach by creating the coupled model using a function. The second approach uses the same underlying code, but instead creates a Julia module called `MimiNICEv2`.
+Alternatively, you can run the code for the NICE2020 model in two ways. The first uses the standard approach by creating the coupled model using a function. The second approach uses the same underlying code, but instead creates a Julia module called `MimiNICE2020`.
 
 #### Running The Example Runs
-(1) Set this repository, as your working directory.  
-(2) Load the file for the example runs. The results will be stored in the /results folder.
+(1) Set this repository as your working directory.  
+(2) Load the file for the example runs. The results will be stored in the NICE2020/results folder.
 ```julia
 include("src/example_runs.jl")
 ```
@@ -57,6 +57,7 @@ run(m)
 ```julia
 # Get temperature values.
 my_temp = m[:temperature, :T]
+```
 
 (6) Explore model input and outputs graphically. 
 ```julia

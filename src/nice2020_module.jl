@@ -2,7 +2,7 @@
 ##################################################
 
 # Set as a Julia module.
-module nice2020_module
+module MimiNICE2020
 
 # Load required packages.
 using Mimi, MimiFAIRv2, Statistics, Random, Distributions, Inequality
