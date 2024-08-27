@@ -5,25 +5,25 @@
 	quantile        = Index()
 
 
-    qc_post_recycle         = Parameter(index=[time, country, quantile])  	# Quantile per capita consumption after recycling tax back to quantiles (thousands 2017 USD/person yr⁻¹).
+    qcpc_post_recycle       = Parameter(index=[time, country, quantile])    # Quantile per capita consumption after recycling tax back to quantiles (thousand USD2017 per person per year)
     η                       = Parameter()                                   # Inequality aversion
-    nb_quantile             = Parameter()
+    nb_quantile             = Parameter()                                   # Number of quantiles
     l                       = Parameter(index=[time, country])              # Population (thousands)
     mapcrwpp                = Parameter(index=[country])                    # Map from country index to wpp region index
 
-    cons_EDE_country        = Variable(index=[time, country])               # Equally distributed welfare equivalent consumption (thousands 2017 USD/person yr⁻¹)
-    cons_EDE_rwpp            = Variable(index=[time, regionwpp])
-    cons_EDE_global         = Variable(index=[time])               # Equally distributed welfare equivalent consumption (thousands 2017 USD/person yr⁻¹)
-    welfare_country         = Variable(index=[time, country])
-    welfare_rwpp           = Variable(index=[time, regionwpp])
-    welfare_global          = Variable(index=[time])
+    cons_EDE_country        = Variable(index=[time, country])               # Equally distributed welfare equivalent consumption (thousand USD2017 per person per year)
+    cons_EDE_rwpp           = Variable(index=[time, regionwpp])             # Regional qually distributed welfare equivalent consumption (thousand USD2017 per person per year)
+    cons_EDE_global         = Variable(index=[time])                        # Glibal equally distributed welfare equivalent consumption (thousand USD2017 per person per year)
+    welfare_country         = Variable(index=[time, country])               # Country welfare
+    welfare_rwpp            = Variable(index=[time, regionwpp])             # WPP region welfare
+    welfare_global          = Variable(index=[time])                        # Global welfare
 
     function run_timestep(p, v, d, t)
 
         if !(p.η==1)
             for c in d.country
-            v.cons_EDE_country[t,c] = (1/p.nb_quantile * sum(p.qc_post_recycle[t,c,:].^(1-p.η) ) ) ^(1/(1-p.η))
-            v.welfare_country[t,c] = (p.l[t,c]/p.nb_quantile) * sum(p.qc_post_recycle[t,c,:].^(1-p.η) ./(1-p.η))
+            v.cons_EDE_country[t,c] = (1/p.nb_quantile * sum(p.qcpc_post_recycle[t,c,:].^(1-p.η) ) ) ^(1/(1-p.η))
+            v.welfare_country[t,c] = (p.l[t,c]/p.nb_quantile) * sum(p.qcpc_post_recycle[t,c,:].^(1-p.η) ./(1-p.η))
 
             end # country loop
 
@@ -41,8 +41,8 @@
         elseif p.η==1
 
             for c in d.country
-            v.cons_EDE_country[t,c] = exp(1/p.nb_quantile * sum( log.(p.qc_post_recycle[t,c,:]) ))
-            v.welfare_country[t,c] = p.l[t,c]/p.nb_quantile * sum(log.(p.qc_post_recycle[t,c,:]))
+            v.cons_EDE_country[t,c] = exp(1/p.nb_quantile * sum( log.(p.qcpc_post_recycle[t,c,:]) ))
+            v.welfare_country[t,c] = p.l[t,c]/p.nb_quantile * sum(log.(p.qcpc_post_recycle[t,c,:]))
 
             end # country loop
 

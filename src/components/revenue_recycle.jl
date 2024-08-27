@@ -2,10 +2,10 @@
 
     country          = Index()
 
-    Y                           = Parameter(index=[time, country])         		# Output net of damages and abatement costs (million USD2017 per year)
-    country_carbon_tax       	= Parameter(index=[time, country])         		# Carbon tax ($/tCO2).
-    LOCAL_DAMFRAC_KW            = Parameter(index=[time, country])              # Country-level damages as a share of net GDP based on country-level temperatures.
-    E_gtco2                 	= Parameter(index=[time, country])      		# Industrial carbon emissions (GtCo2 yr⁻¹).
+    Y                           = Parameter(index=[time, country])         		# Output net of damages and abatement costs (1e6 USD2017 per year)
+    country_carbon_tax       	= Parameter(index=[time, country])         		# CO2 tax rate (USD2017 per tCO2)
+    LOCAL_DAMFRAC_KW            = Parameter(index=[time, country])              #  Country-level damages based on local temperatures and on Kalkuhl & Wenz (share of net output)
+    E_gtco2                 	= Parameter(index=[time, country])      		# Country level CO₂ emissions (GtCO2 per year)
     l           				= Parameter(index=[time, country])  			# Country population (thousands)
     lost_revenue_share      	= Parameter()                           		# Share of carbon tax revenue that is lost and cannot be recycled (1 = 100% of revenue lost)
     global_recycle_share    	= Parameter(index=[country])            		# Shares of country revenues that are recycled globally as international transfers (1 = 100%)
@@ -13,13 +13,13 @@
     switch_scope_recycle	   	= Parameter() 									# Switch, carbon tax revenues recycled at country (0) or  global (1) level
     switch_global_pc_recycle    = Parameter()                                   # Switch, carbon tax revenues recycled globally equal per capital (1)
 
-    tax_revenue 				= Variable(index=[time, country]) 				# Country carbon tax revenue ($1000)
-    tax_pc_revenue              = Variable(index=[time, country]) 				# Carbon tax revenue per capita ($1000s/person)
-    total_tax_revenue           = Variable(index=[time]) 		         		# Total carbon tax revenue ($1000), sum of tax revenue in all countries
-    global_revenue 				= Variable(index=[time]) 						# Carbon tax revenue from globally recycled country revenues ($1000)
-    country_pc_dividend 	    = Variable(index=[time, country]) 				# Total per capita carbon tax dividends, including any international transfers ($1000s/person).
-    country_pc_dividend_domestic_transfers = Variable(index=[time, country]) 	# Per capita carbon tax dividends from domestic redistribution ($1000s/person).
-    country_pc_dividend_global_transfers = Variable(index=[time, country]) 		# Per capita carbon tax dividends from international transfers ($1000s/person).
+    tax_revenue 				= Variable(index=[time, country]) 				# Country carbon tax revenue (thousand 2017USD per year)
+    tax_pc_revenue              = Variable(index=[time, country]) 				# Carbon tax revenue per capita (thousand 2017USD per capita per year)
+    total_tax_revenue           = Variable(index=[time]) 		         		# Total carbon tax revenue (thousand 2017USD per year), sum of tax revenue in all countries
+    global_revenue 				= Variable(index=[time]) 						# Carbon tax revenue from globally recycled country revenues (thousand 2017USD per year)
+    country_pc_dividend 	    = Variable(index=[time, country]) 				# Total per capita carbon tax dividends, including any international transfers (thousand 2017USD per year)
+    country_pc_dividend_domestic_transfers = Variable(index=[time, country]) 	# Per capita carbon tax dividends from domestic redistribution (thousand 2017USD per year)
+    country_pc_dividend_global_transfers = Variable(index=[time, country]) 		# Per capita carbon tax dividends from international transfers (thousand 2017USD per year)
 
 
     function run_timestep(p, v, d, t)
@@ -30,12 +30,12 @@
 
        for c in d.country
 
-            # Calculate carbon tax revenue for each country ($1000).
+            # Calculate carbon tax revenue for each country (thousand 2017USD per year)
             # Note, emissions in GtCO2 and tax in 2017 $ per tCO2
             # Convert to tCo2 (Gt to t: *1e9) and to thousand dollars ($ to $1000: /1e3) -> *1e6
             v.tax_revenue[t,c] = (p.E_gtco2[t,c] * p.country_carbon_tax[t,c] * 1e6) * (1.0 - p.lost_revenue_share)
 
-            # Carbon tax revenue per capita for each country ($1000 per capita)
+            # Carbon tax revenue per capita for each country (thousand 2017USD per capita per year)
             # population l in thousands, so divide by 1e3
             v.tax_pc_revenue[t,c] =  v.tax_revenue[t,c] / p.l[t,c] / 1e3
 
@@ -45,7 +45,7 @@
         ## Compute total tax revenue available and revenue recycled at global level 
         ##########################################################################
 
-        # total of all countries carbon tax revenue ($1000).
+        # total of all countries carbon tax revenue (thousand 2017USD per year)
         v.total_tax_revenue[t] = sum(v.tax_revenue[t,:])
 
         # Calculate tax revenue from globally recycled revenue ($1000)

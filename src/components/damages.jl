@@ -13,8 +13,8 @@
     β1_KW              = Parameter(index=[country]) # Linear damage coefficient on local temperature anomaly for Kalkuhl and Wenz based damage function
     β2_KW              = Parameter(index=[country])  # Quadratic damage coefficient on local temperature anomaly for Kalkuhl and Wenz based damage function
 
-    LOCAL_DAMFRAC_KW  = Variable(index=[time, country]) # Country-level damages as a share of net GDP based on local temperatures and on Kalkuhl & Wenz
-    DAMFRAC           = Variable(index=[time, country]) # Country-level damages as a share of net GDP based on global temperatures.
+    LOCAL_DAMFRAC_KW  = Variable(index=[time, country]) # Country-level damages based on local temperatures and on Kalkuhl & Wenz (share of net output)
+    DAMFRAC           = Variable(index=[time, country]) # Country-level damages based on global temperatures (share of net outpu)
 
     function run_timestep(p, v, d, t)
 

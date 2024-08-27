@@ -9,26 +9,26 @@
     regionwpp  = Index() # Index for WPP regions
 
     # Parameters
-    YGROSS           = Parameter(index=[time, country]) # Gross output (million 2017 US$ per year)
-    ABATEFRAC        = Parameter(index=[time, country]) # Abatement cost as a share of gross output
-    LOCAL_DAMFRAC_KW = Parameter(index=[time, country]) # Country-level damages as a share of net GDP based on country-level temperatures.
-    s                = Parameter(index=[time, country])  #Savings rate
-    l                = Parameter(index=[time, country])  #Labor - population (thousands)
+    YGROSS           = Parameter(index=[time, country]) # Gross output (1e6 USD2017 per year)
+    ABATEFRAC        = Parameter(index=[time, country]) # Abatement cost (share of gross output)
+    LOCAL_DAMFRAC_KW = Parameter(index=[time, country]) # Country-level damages based on local temperatures and on Kalkuhl & Wenz (share of net output)
+    s                = Parameter(index=[time, country]) # Savings rate
+    l                = Parameter(index=[time, country]) # Labor - population (thousands)
     mapcrwpp        = Parameter(index=[country])        # Map from country index to WPP region index
 
     # Variables
 
-    Y           = Variable(index=[time, country]) # Output net of damages and abatement costs (million USD2017 per year)
-    C           = Variable(index=[time, country]) # Country consumption
-    CPC         = Variable(index=[time, country]) # Country level consumption per capita (thousand US$ per year)
-    Y_pc        = Variable(index=[time, country]) # Per capita output net of abatement and damages (2017 USD / person).
+    Y           = Variable(index=[time, country]) # Output net of damages and abatement costs (1e6 USD2017 per year)
+    C           = Variable(index=[time, country]) # Country consumption (1e6 USD2017 per year)
+    CPC         = Variable(index=[time, country]) # Country level consumption per capita (thousand USD2017 per person per year)
+    Y_pc        = Variable(index=[time, country]) # Per capita output net of abatement and damages (2017 USD per person per year)
 
-    I           = Variable(index=[time, country]) # Investment
+    I           = Variable(index=[time, country]) # Investment (1e6 USD2017 per year)
     # WPP region variables
-    C_rwpp     = Variable(index=[time, regionwpp]) # Regional consumption (million US$ per year)
+    C_rwpp     = Variable(index=[time, regionwpp]) # Regional consumption (1e6 USD2017 per year)
     l_rwpp     = Variable(index=[time, regionwpp]) # Regional population (thousands)
-    CPC_rwpp   = Variable(index=[time, regionwpp]) # Regional CPC (thousand US$ per year)
-    Y_pc_rwpp  = Variable(index=[time, regionwpp]) # Regional per capita output net of abatement and damages (2017 USD / person).
+    CPC_rwpp   = Variable(index=[time, regionwpp]) # Regional CPC (thousand 2017USD per person per year)
+    Y_pc_rwpp  = Variable(index=[time, regionwpp]) # Regional per capita output net of abatement and damages (USD2017 per person per year).
 
     function run_timestep(p, v, d, t)
 

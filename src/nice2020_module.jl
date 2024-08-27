@@ -224,9 +224,10 @@ function create_nice2020()
 	connect_param!(m, :quantile_recycle => :LOCAL_DAMFRAC_KW,	:damages 			=> :LOCAL_DAMFRAC_KW)
 	connect_param!(m, :quantile_recycle => :CPC, 				:neteconomy 		=> :CPC)
 	connect_param!(m, :quantile_recycle => :Y,					:neteconomy 		=> :Y)
+	connect_param!(m, :quantile_recycle => :Y_pc,				:neteconomy 		=> :Y_pc)
 	connect_param!(m, :quantile_recycle => :country_pc_dividend,:revenue_recycle	=> :country_pc_dividend)
 	connect_param!(m, :quantile_recycle => :tax_pc_revenue,		:revenue_recycle	=> :tax_pc_revenue)
-	connect_param!(m, :welfare 			=> :qc_post_recycle, 	:quantile_recycle	=> :qc_post_recycle)
+	connect_param!(m, :welfare 			=> :qcpc_post_recycle, 	:quantile_recycle	=> :qcpc_post_recycle)
 
 	# Return model.
 	return m

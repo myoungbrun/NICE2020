@@ -6,10 +6,10 @@
 
     country           = Index() # Set a Mimi index for the modeled regions.
 
-    β_temp             = Parameter(index=[country]) # Pattern scale coefficients that translate global => country-level temperature.
+    β_temp             = Parameter(index=[country]) # Pattern scale coefficients that translate global => country-level temperature
     global_temperature = Parameter(index=[time]) # Global average temperature anomaly (°C)
 
-	local_temperature  = Variable(index=[time, country]) # Country-level temperaure anomaly (°C).
+	local_temperature  = Variable(index=[time, country]) # Country-level temperaure anomaly (°C)
 
 
     function run_timestep(p, v, d, t)

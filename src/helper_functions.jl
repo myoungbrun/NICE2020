@@ -213,10 +213,10 @@ function save_nice2020_results(m::Model, output_directory::String; revenue_recyc
 
     # Save Quantile Output.
     save(joinpath(quantile_path, "co2_tax_distribution.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :carbon_tax_dist)))
-    save(joinpath(quantile_path, "base_pc_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qc_base)))
-    save(joinpath(quantile_path, "post_damage_abatement_pc_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qc_post_damage_abatement)))
-    save(joinpath(quantile_path, "post_tax_pc_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qc_post_tax)))
-    save(joinpath(quantile_path, "post_recycle_pc_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qc_post_recycle)))
+    save(joinpath(quantile_path, "base_pc_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qcpc_base)))
+    save(joinpath(quantile_path, "post_damage_abatement_pc_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qcpc_post_damage_abatement)))
+    save(joinpath(quantile_path, "post_tax_pc_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qcpc_post_tax)))
+    save(joinpath(quantile_path, "post_recycle_pc_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qcpc_post_recycle)))
     save(joinpath(quantile_path, "post_recycle_share_consumption.csv"), filter!(:time => x -> x<2121, getdataframe(m, :quantile_recycle => :qc_share)))
 
 end

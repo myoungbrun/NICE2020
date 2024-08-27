@@ -5,27 +5,27 @@
 @defcomp abatement begin
     country          = Index()
 
-    σ       = Parameter(index=[time, country])  # Emissions output ratio, GtCO2 per million 2017 US$
-    YGROSS  = Parameter(index=[time, country])  # Gross output, from grosseconomy,
+    σ       = Parameter(index=[time, country])  # Emissions output ratio (GtCO2 per million USD2017)
+    YGROSS  = Parameter(index=[time, country])  # Gross output (1e6 USD2017 per year)
     s       = Parameter(index=[time, country])  # Savings rate
     l       = Parameter(index=[time, country])  #Labor - population (thousands)
     η       = Parameter()                       # Inequality aversion
 
     θ2                      = Parameter()                       # Exponent of abatement cost function (DICE-2023 value)
-    pbacktime               = Parameter(index=[time])           # Backstop price from DICE 2023, in 2017USD per tCO2
-    global_carbon_tax       = Parameter(index=[time])
-    reference_carbon_tax    = Parameter(index=[time])
-    reference_country_index = Parameter()
+    pbacktime               = Parameter(index=[time])           # Backstop price from DICE 2023 (2017USD per tCO2)
+    global_carbon_tax       = Parameter(index=[time])           # CO2 tax rate (2017 USD per tCO2)
+    reference_carbon_tax    = Parameter(index=[time])           # CO2 tax rate (2017 USD per tCO2)
+    reference_country_index = Parameter()                       # Index of the reference country for the differentiated carbon tax case
     control_regime          = Parameter()                       # Switch for emissions control regime  1:"global_carbon_tax", 2:"country_carbon_tax", 3:"country_abatement_rate"
     μ_input                 = Parameter(index=[time, country])  # Input mitigation rate, used with option 3 "country_abatement_rate"
 
     θ1                 = Variable(index=[time, country])    # Multiplicative parameter of abatement cost function. Equal to ABATEFRAC at 100% mitigation
     country_carbon_tax = Variable(index=[time, country]) 	# CO2 tax rate (2017 USD per tCO2)
-    μ 		           = Variable(index=[time, country]) 	# Emission control rate GHGs
-    ABATEFRAC          = Variable(index=[time, country])    # Cost of emissions reduction in share of gross GDP
-    ABATECOST 	       = Variable(index=[time, country]) 	# Cost of emissions reductions  (trillions 2017 USD per year)
+    μ 		           = Variable(index=[time, country]) 	# Emissions control rate
+    ABATEFRAC          = Variable(index=[time, country])    # Cost of emissions reductions (share of annual gross output)
+    ABATECOST 	       = Variable(index=[time, country]) 	# Cost of emissions reductions  (million 2017 USD per year)
 
-    GLOBAL_ABATEFRAC_full_abatement      = Variable(index=[time])
+    GLOBAL_ABATEFRAC_full_abatement      = Variable(index=[time]) # Global cost of emissions reductions (share of global annual gross ouput)
 
     function run_timestep(p, v, d, t)
         # Define an equation for E

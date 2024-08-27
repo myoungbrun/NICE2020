@@ -6,16 +6,16 @@
 @defcomp grosseconomy begin
     country = Index()                           #Note that a regional index is defined here
 
-    I       = Parameter(index=[time, country]) 	# Investment
-    l       = Parameter(index=[time, country])  # Labor - population
+    I       = Parameter(index=[time, country]) 	# Investment (1e6 USD2017 per year)
+    l       = Parameter(index=[time, country])  # Labor - population (thousands)
     tfp     = Parameter(index=[time, country])  # Total factor productivity
     depk    = Parameter(index=[time, country])  # Depreciation rate on capital
-    k0      = Parameter(index=[country])        # Initial level of capital
+    k0      = Parameter(index=[country])        # Initial level of capital (1e6 USD2017)
     share   = Parameter()                       # Capital share
 
-    YGROSS  = Variable(index=[time, country])   # Gross output (1e6 USD2017)
-    YGROSS_global = Variable(index=[time])	# Global gross output (1e12 USD2017)
-    K       = Variable(index=[time, country])   # Capital
+    YGROSS  = Variable(index=[time, country])   # Gross output (1e6 USD2017 per year)
+    YGROSS_global = Variable(index=[time])	    # Global gross output (1e12 USD2017 per year)
+    K       = Variable(index=[time, country])   # Capital (1e6 USD2017)
 
     function run_timestep(p, v, d, t)
     # Note that the country dimension is defined in d and parameters and variables are indexed by 'c'
