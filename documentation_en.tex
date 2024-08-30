@@ -102,7 +102,7 @@
 %  hidelinks,
 %  pdfcreator={LaTeX via pandoc}}
 
-\author{T. O. Da Costa}
+\author{T. O. Da Costa \\{\small  Update by M Young-Brun 30/08/2024} }
 \date{}
 \title{NICE 2020 model --- code documentation}
 
@@ -127,7 +127,6 @@
 
   $q$ & \texttt{quantile} & Index of income quantiles \\
   
-  $rrice$ & \texttt{regionrice} & Regions defined by the RICE model \\
   
   $rwpp$ &\texttt{regionwpp} & Regions defined from the World Population Prospects database (UN) \\
   
@@ -158,7 +157,7 @@
   \(\theta2\) & Exponent of abatement cost function (DICE-2023 value) & — & 2.6 \\
   \(\mu\_input[t,c]\) & Input mitigation rate, used with option 3 ``country\_abatement\_rate'' & \% & — \\
   \(\text{control\_regime}\) & Switch for emissions control regime ; 1 = ``global\_carbon\_tax'', 2 = ``country\_carbon\_tax'', 3 = ``country\_abatement\_rate'' & — & 3 (by default) \\
-  \(\text{daily\_poverty\_line}\) & Daily poverty line & \$/pers/day & 2.15 \\
+
   \(\text{damage\_elasticity}\) & Income elasticity of climate damages (1 = proportional to income) & — & 0.85 \\
   \(\text{depk[t,c]}\) & Depreciation rate on capital & \% & — \\
   \(\text{elasticity}\) & Income elasticity with respect to climate damage, mitigation costs, etc. It can either be \texttt{damage\_elasticity} or \texttt{CO2\_income\_elasticity} & — & — \\
@@ -171,11 +170,10 @@
   \(\text{increase\_value}\) & The annual tax increase value. By default, it is equal to \texttt{tax\_start\_value}, which means that the tax increases by its initial value each year & \$/tCO$_2$ & — \\
   \(\text{k0[c]}\) & Initial level of capital. Determines the starting point for capital accumulation & $10^6$ \$/yr & — \\
   \(\text{l[t,c]}\) & Labor/population. This parameter represents either the population or the available workforce for production of a given country & $10^3$ pers. & — \\
-  \(\text{list\_llmic\_flag[c]}\) & Equal to 1 if the country is on the list of low and middle income countries, 0 otherwise & — & — \\
-  \(\text{list\_risk\_index[c]}\) & Risk index & — & — \\
+
   \(\text{local\_temp\_anomaly[t,c]}\) & Country-level average surface temperature anomaly (above pre-industrial {[}year 1750{]} level) & °C & — \\
   \(\text{lost\_revenue\_share}\) & Portion of carbon tax revenue that is lost and cannot be recycled (1 = 100\% of revenue lost, 0 = no revenue lost) & \% & 0 (by default) \\
-  \(\text{mapcrrice[c]}\) & Mapping from country index to RICE region index & — &183 countries to 12 regions \\
+
   \(\text{mapcrwpp[c]}\) & Mapping from country index to UN WPP region index & — &183 countries to 20 regions \\
   \(\text{max\_study\_gdp}\) & Maximum value of GDP per capita observed in elasticity studies & \$/pers. & 48892 \\
   \(\text{min\_study\_gdp}\) & Minimum value of GDP per capita observed in elasticity studies & \$/pers. & 647 \\
@@ -188,11 +186,9 @@
   \(\text{reference\_country\_index}\) & Reference country index & — & USA \\
   \(\text{s[t,c]}\) & Savings rate & \% & — \\
   \(\text{share}\) & Capital's share of production. This parameter is global and affects the distribution of income between capital and labor & \% & 0.3 \\
-  \(\text{switch\_dam}\) \(\text{\_abs\_llmic\_recycle}\) & Boolean, carbon tax revenues are recycled globally in proportion to absolute damage in LLMICs & — & 0 or 1 \\
-  \(\text{switch\_dam}\) \(\text{\_rel\_llmic\_recycle}\) & Boolean, carbon tax revenues are recycled globally in proportion to population-weighted relative damages in low- and middle-income countries (LLMICs) & — & 0 or 1 \\
+
   \(\text{switch\_global}\) \(\text{\_pc\_recycle}\) & Boolean, carbon tax revenues are recycled globally on an equal per capita basis & — & 0 or 1 \\
   \(\text{switch\_recycle}\) & Boolean for recycling carbon tax revenue & — & 0 or 1 \\
-  \(\text{switch\_risk}\) \(\text{\_llmic\_recycle}\) & Boolean, carbon tax revenues are recycled according to a population-weighted risk index in LLMICs & — & 0 or 1 \\
   \(\text{switch\_scope\_recycle}\) & Boolean, carbon tax revenues are recycled at national (0) or global (1) level & — & 0 or 1 \\
   \(\text{tax\_start\_value}\) & The initial value of the carbon tax & \$/tCO$_2$ & Depends on the chosen carbon tax pathway \\
   \(\text{temp\_anomaly[t]}\) = \(\text{global\_temperature[t]}\) & Global average surface temperature excess (above pre-industrial {[}year 1750{]} level) & °C & — \\
@@ -215,8 +211,7 @@
   \hline
   \endhead
   \(\mu[t,c]\) & GHG emissions mitigation rate & \% \\
-  $\mu\_{\text{cons}}[t,c]$ & $\mu$ parameter of the lognormal distribution of consumption & — \\
-  $\sigma\_{\text{cons}}[t,c]$ & $\sigma$ parameter of the lognormal distribution of consumption & — \\
+ 
   \(\theta1[t,c]\) & Multiplicative parameter of abatement cost function. Equal to ABATEFRAC at 100\% mitigation & — \\
   \text{ABATECOST[t,c]} & Cost of emission reductions & $10^6$ \$/yr \\
   \text{ABATEFRAC[t,c]} & Cost of emission reductions as a share of gross economic output & \% \\
@@ -230,7 +225,6 @@
   \text{country\_pc\_dividend[t,c]} & Total fiscal dividends per person, including all international monetary transfers & $10^3$ \$/pers/yr \\
   \text{country\_pc\_dividend} \text{\_domestic\_transfers[t,c]} & Fiscal dividends per person from domestic redistribution, i.e., within a country & $10^3$ \$/pers/yr \\
   \text{country\_pc\_dividend} \text{\_global\_transfers[t,c]} & Tax dividends per person from international transfers & $10^3$ \$/pers/yr \\
-  \text{country\_pc\_dividend} \text{\_llmic[t,c]} & Tax income per person in LLMIC & $10^3$ \$/pers/yr \\
   \text{CPC[t,c]} & Country level consumption per capita & $10^3$ \$/pers/yr \\
   \text{CPC\_post[t,c]} & Country level consumption per capita after recycling & $10^3$ \$/pers/yr \\
   \text{CPC\_post\_global[t]} & World consumption per capita after recycling & $10^3$ \$/pers/yr  \\
@@ -240,11 +234,9 @@
   \text{damage\_dist[t,c,q]} & Share of the distribution of climate damage per quantile & — \\
   \text{E\_gtco2[t,c]} & Country-level total GHG emissions & $10^9$ tCO2/yr \\
   \text{E\_Global\_gtco2[t]} & Global emissions (sum of all country emissions) & $10^9$ tCO2/yr \\
-  \text{E\_Global\_gtco2} \text{\_rrice[t,rrice]} & Regional GHG emissions for the regions defined in the RICE model & $10^9$ tCO2/yr \\
   \text{E\_Global\_gtc[t]} & Global emissions in units of gigatonnes of carbon, giving compatible units with FAIR & $10^9$ tC/yr \\
   \text{GLOBAL\_ABATEFRAC} \text{\_full\_abatement[t]} & Global \texttt{ABATEFRAC[t]} in case of full mitigation & \% \\
   \text{global\_gini\_cons[t]} & Gini index of world consumption & — \\
-  \text{global\_poverty} \text{\_population\_cons[t]} & Number of people living in poverty in the world, based on consumption & $10^3$ pers \\
   \text{global\_revenue[t]} & Carbon tax revenue, derived from the total recycled revenue of all countries & \$/yr \\
   \text{global\_pc\_revenue[t]} & Carbon tax revenue per person, derived from the total recycled revenue of all countries & $10^3$ \$/pers/yr \\
   \text{gini\_cons[t,c]} & Gini index of country consumption & — \\
@@ -252,29 +244,22 @@
   \text{I[t,c]} & Investment & $10^6$ \$/yr \\
   \text{K[t,c]} & Capital & $10^6$ \$/yr \\
   \text{l\_rwpp[t,rwpp]} & Regional population & $10^3$ pers. \\
-  \text{llmic\_population[t]} & Total population in low- and middle-income countries & $10^3$ pers. \\
   \text{LOCAL\_} \text{DAMFRAC\_KW[t,c]} & Country-level damages as a share of net GDP based on local temperatures and on Kalkuhl \& Wenz & \% \\
   \text{local\_temperature[t,c]} & Excess temperature at country level (above pre-industrial {[}year 1750{]} level)& °C \\
-  \text{pc\_gdp[t,c]} = \text{Y\_pc[t,c]} & Net GDP per capita after damages and mitigation costs & \$/pers/yr \\
-  \text{poverty\_population} \text{\_cons[t,c]} & Number of people living in poverty in each country, according to consumption & $10^3$ pers \\
-  \text{poverty\_population} \text{\_cons\_rwpp[t,rwpp]} & Number of people in poverty at regional level, based on consumption & $10^3$ pers \\
-  \text{poverty\_rate\_cons[t,c]} & Poverty rate in a country, according to consumption. The poverty line is defined as \$ 2.15 per capita per day & \% \\
-  \text{qc\_base[t,c,q]} & Consumption per quantile per capita before damage, before abatement cost, before tax & $10^3$ \$pers/yr \\
-  \text{qc\_post} \text{\_damage\_abatement[t,c,q]} & Consumption per quantile per capita after damage, after abatement & $10^3$ \$/pers/yr \\
+
+  \text{qcpc\_base[t,c,q]} & Consumption per quantile per capita before damage, before abatement cost, before tax & $10^3$ \$pers/yr \\
+  \text{qcpc\_post} \text{\_damage\_abatement[t,c,q]} & Consumption per quantile per capita after damage, after abatement & $10^3$ \$/pers/yr \\
   \text{qc\_post\_recycle[t,c,q]} & Consumption per quantile per capita after recycling the carbon tax to each quantile & $10^3$ \$/pers/yr \\
-  \text{qc\_post\_tax[t,c,q]} & Consumption per quantile per capita after subtraction of the carbon tax & $10^3$ \$/pers/yr \\
-  \text{qc\_share[t,c,q]} & Proportion of consumption per quantile per capita & \% \\
-  \text{qpop[t,c,q]} & Population per quantile & $10^3$ pers \\
+  \text{qcpc\_post\_tax[t,c,q]} & Consumption per quantile per capita after subtraction of the carbon tax & $10^3$ \$/pers/yr \\
+  \text{qcpc\_share[t,c,q]} & Proportion of consumption per quantile per capita & \% \\
   \text{revenue\_recycled} \text{\_global\_level[t]} & Recycle a share \texttt{global\_recycle\_share} of \texttt{tax\_revenue} at global level & $10^3$ \$/yr \\
   \text{tax\_pc\_revenue[t,c]} & Carbon tax revenue per capita from country emissions & $10^3$ \$/pers/yr \\
   \text{tax\_revenue[t,c]} & Carbon tax revenue for a given country & \$/yr \\
   \text{tax\_values[t]} & Array containing the carbon tax values over time, until the last year of tax defined & — \\
-  \text{total\_c\_post\_recycle[t,c]} & Total consumption per country after recycling & $10^3$ \$/pers/yr \\
+  \text{sum\_qcpc\_} \text{post\_recycle[t,c]} & Sum of quantiles post consumption per capita  & $10^3$ \$ / (pers per quant) / yr\\
   \text{total\_tax\_pc\_revenue[t]} & Total carbon tax revenue per person, sum of tax revenues in all countries per person & $10^3$ \$/pers/yr \\
-  \text{total\_tax\_revenue[t]} & Total carbon tax revenue, sum of tax revenues in all countries & \$/yr \\
-  \text{TRANSFRAC\_dam} \text{\_abs\_llmic[t,c]} & Proportion of damage suffered in the country in relation to global damage (damage costs ratio) & \% \\
-  \text{TRANSFRAC\_dam} \text{\_rel\_llmic[t,c]} & Proportion of damage suffered in the country in relation to global damage (share of population-weighted global net output ratio) & \% \\
-  \text{TRANSFRAC\_risk} \text{\_llmic[t,c]} & Proportion of risk based on the population-weighted 2023 risk index in LLMIC & \% \\
+  \text{total\_tax\_revenue[t]} & Total carbon tax revenue, sum of tax revenues in all countries & $10^3$ \$/yr \\
+  
   \text{updated\_quantile} \text{\_distribution[t,c,q]} & An array which contains the updated quantile share distribution for each country, considering the given income elasticity & — \\
   \text{welfare\_country[t,c]} & Welfare for countries & — \\
   \text{welfare\_global[t]} & Global welfare & — \\
@@ -282,7 +267,7 @@
   \text{YGROSS[t,c]} & Gross output & $10^6$ \$/yr \\
   \text{YGROSS\_global[t]} & Global gross output, represents the sum of all countries' gross production & $10^{12}$ \$/yr \\
   \text{Y[t,c]} & Output net of damages and abatement costs & $10^6$ \$/yr \\
-  \text{Y\_pc[t,c]} = \text{pc\_gdp[t,c]} & Net GDP per capita after damages and mitigation costs & \$/pers/yr  \\
+  \text{Y\_pc[t,c]} & Net GDP per capita after damages and mitigation costs & \$/pers/yr  \\
   \text{Y\_pc\_rwpp[t,rwpp]} & Regional per capita output net of abatement and damages & \$/pers/yr \\
   \hline
 \end{longtable}
@@ -317,8 +302,7 @@ mitigation.
 \tightlist
 \item
   \texttt{country}: Countries included in the model.
-\item
-  \texttt{regionrice}: Regions defined by the RICE model.
+
 \end{itemize}
 
 \subsection{Parameters}\label{parameters}
@@ -498,7 +482,7 @@ anomalies, as a share of GDP.
 \item
   \texttt{country}: Countries included in the model.
 \item
-  \texttt{regionrice}: Regions defined by the RICE model.
+  \texttt{regionwpp}: Regions WPP.
 \end{itemize}
 
 \subsection{Parameters}\label{parameters-1}
@@ -582,7 +566,7 @@ and national level.
 \item
   \texttt{country}: Countries included in the model.
 \item
-  \texttt{regionrice}: Regions defined by the RICE model.
+  \texttt{regionwpp}: WPP regions.
 \end{itemize}
 
 \subsection{Parameters}\label{parameters-2}
@@ -592,9 +576,8 @@ and national level.
 \begin{itemize}
 \tightlist
 \item
-  \texttt{mapcrrice}: Mapping from country index to RICE region index.
-  This parameter is indexed by country, linking country data to specific
-  regions in the RICE model.
+  \texttt{mapcrwpp}: Mapping from country index to WPP region index.
+  This parameter is indexed by country, linking country data to specific WPP regions.
 \end{itemize}
 
 \subsubsection{Time and country
@@ -609,8 +592,7 @@ dependent}\label{time-and-country-dependent-4}
   \texttt{YGROSS}: Gross output, in million USD2017 per year. This
   parameter represents the economic activity of each country.
 \item
-  \(\mu\) : GHG emissions control rate, representing the effectiveness
-  of mitigation policies implemented.
+  \(\mu\) : GHG emissions control rate.
 \end{itemize}
 
 \subsection{Variables}\label{variables-2}
@@ -636,14 +618,13 @@ dependent}\label{time-and-country-dependent-5}
   GtCO2 per year.
 \end{itemize}
 
-\subsubsection{Time and RICE region
-dependent}\label{time-and-rice-region-dependent}
+\subsubsection{Time and WPP region
+dependent}\label{time-and-WPP-region-dependent}
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{E\_gtco2\_rrice}: Regional GHG emissions for the regions
-  defined in the RICE model, measured in GtCO2 per year.
+  \texttt{E\_gtco2\_rwpp}: Regional GHG emissions for the WPP regions, measured in GtCO2 per year.
 \end{itemize}
 
 \subsection{Equations}\label{equations-2}
@@ -682,15 +663,15 @@ the molecular conversion factor :
 This conversion is necessary for integration with the FAIR model, which
 uses emissions in GtC.
 
-\subsubsection{Regional emissions for RICE
-regions}\label{regional-emissions-for-rice-regions}
+\subsubsection{Regional emissions for WPP
+regions}\label{regional-emissions-for-wpp-regions}
 
-For each \texttt{rrice} RICE region in the set of \texttt{regionrice}
+For each \texttt{rwpp} WPP region in the set of \texttt{regionwpp}
 regions, regional CO2 emissions are calculated as the sum of the
 emissions of the countries belonging to that region:
 
 \begin{equation}
- E_{\text{gtco2\_rrice}}[t,rrice] = \sum_{c \in \text{rrice}} E_{\text{gtco2}}[t,c] 
+ E_{\text{gtco2\_rwpp}}[t,rwpp] = \sum_{c \in \text{rwpp}} E_{\text{gtco2}}[t,c] 
 \end{equation}
 
 
@@ -792,11 +773,11 @@ for each country \texttt{c}.
 \item
   For subsequent periods, capital is calculated by taking into account
   the previous year's capital depreciation and the previous year's
-  investment, multiplied by 5 (representing a 5-year period):
+  investment:
 \end{itemize}
 
 \begin{equation}
- K[t,c] = (1 - depk[t,c])^5 \cdot K[t-1,c] + I[t-1,c] \cdot 5
+ K[t,c] = (1 - depk[t,c]) \cdot K[t-1,c] + I[t-1,c] 
 \end{equation}
 
 
@@ -1072,7 +1053,7 @@ temperature anomaly at time \texttt{t}.
 \end{equation}
 
 
-\section{quantile\_distribution.jl}\label{quantile_distribution.jl}
+\section{quantile\_recycle.jl}\label{quantile_recycle.jl}
 
 This file calculates many variables (see \emph{infra}), including per
 capita consumption, the poverty rate or the Gini index.
@@ -1109,6 +1090,9 @@ dependent}\label{time-and-country-dependent-10}
 \item
   \texttt{Y} : Net production after damage and mitigation costs, in
   millions USD2017 per year.
+  \item
+  \texttt{Y\_pc} : Net production per capita after damage and mitigation costs, in
+  USD2017 pers person per year.
 \item
   \texttt{country\_pc\_dividend}: Total per capita revenue from the
   carbon tax, including any international transfers, in thousands of
@@ -1136,8 +1120,7 @@ dependent}\label{time-and-country-dependent-10}
 \item
   \texttt{damage\_elasticity}: Elasticity of income in relation to
   climate damage (1 = proportional to income).
-\item
-  \texttt{daily\_poverty\_line}: Daily poverty line, in USD2017.
+
 \item
   \texttt{quantile\_income\_shares}: Income shares of deciles, depending
   on time, country and quantiles.
@@ -1159,9 +1142,7 @@ dependent}\label{time-and-country-dependent-10}
   recycling, in thousands of USD2017 per person per year.
 \item
   \texttt{global\_gini\_cons}: Gini index of world consumption.
-\item
-  \texttt{global\_poverty\_population\_cons}: Number of people living in
-  poverty in the world (in thousands), based on consumption.
+
 \end{itemize}
 
 \subsubsection{Time and country
@@ -1172,25 +1153,11 @@ dependent}\label{time-and-country-dependent-11}
 \item
   \texttt{CO2\_income\_elasticity}: Income elasticity - price of CO2.
 \item
-  \texttt{pc\_gdp}: Net GDP per capita after damages and mitigation
-  costs (in USD2017 per person per year).
-\item
-  \texttt{total\_c\_post\_recycle}: Total consumption per country after
-  recycling, in thousands of USD2017 per person per year.
+  \texttt{sum\_qcpc\_post\_recycle}: Sum of quantiles consumption per capita after abatement, damages and revenue recycling (thousand USD2017 per (capita per quantile) per year).
 \item
   \texttt{CPC\_post}: National consumption per capita after recycling, in thousands of USD2017 per person per year.
 \item
   \texttt{gini\_cons}: Gini index of country consumption (\%).
-\item
-\texttt{$\mu\_{\text{cons}}[t,c]$}, \texttt{$\sigma\_{\text{cons}}[t,c]$}: $\mu$ and $\sigma$ parameters of
-  the lognormal distribution of consumption.
-\item
-  \texttt{poverty\_rate\_cons}: Poverty rate in a country (\%),
-  according to consumption. The poverty line is defined as USD2017 2.15
-  per person per day.
-\item
-  \texttt{poverty\_population\_cons}: Number of people living in poverty
-  in each country (in thousands), according to consumption.
 \end{itemize}
 
 \subsubsection{Time, country and quantile
@@ -1203,24 +1170,22 @@ dependent}\label{time-country-and-quantile-dependent}
   \texttt{damage\_dist}: Shares of the distribution of abatement costs,
   CO2 tax burden and climate damage per quantile.
 \item
-  \texttt{qc\_base}: Consumption per quantile per capita before damage, before
+  \texttt{qcpc\_base}: Consumption per quantile per capita before damage, before
   abatement cost, before tax (thousands of USD2017 per person per year).
 \item
-  \texttt{qc\_post\_damage\_abatement}: Consumption per quantile per capita after damage, after
+  \texttt{qcpc\_post\_damage\_abatement}: Consumption per quantile per capita after damage, after
   abatement (thousands of
   USD2017 per person per year).
 \item
-  \texttt{qc\_post\_tax}: Consumption per quantile per capita after
+  \texttt{qcpc\_post\_tax}: Consumption per quantile per capita after
   subtraction of the carbon tax (thousands USD2017 per person per year).
 \item
-  \texttt{qc\_post\_recycle}: Consumption per quantile per capita after
+  \texttt{qcpc\_post\_recycle}: Consumption per quantile per capita after
   recycling the carbon tax to each quantile (thousands USD2017 per
   person per year).
 \item
   \texttt{qc\_share}: Proportion of consumption per quantile per capita
   (\%).
-\item
-  \texttt{qpop}: Population per quantile (thousands).
 \end{itemize}
 
 \subsubsection{\texorpdfstring{Time and \texttt{regionwpp}
@@ -1233,9 +1198,6 @@ dependent}{Time and regionwpp dependent}}\label{time-and-regionwpp-dependent}
   recycling, in thousands of USD2017 per person per year.
 \item
   \texttt{gini\_cons\_rwpp}: Gini index of regional consumption (\%).
-\item
-  \texttt{poverty\_population\_cons\_rwpp}: Number of people in poverty
-  at regional level (in thousands), based on consumption.
 \end{itemize}
 
 \subsection{Equation}\label{equation-1}
@@ -1243,23 +1205,9 @@ dependent}{Time and regionwpp dependent}}\label{time-and-regionwpp-dependent}
 The \texttt{run\_timestep} function calculates various economic
 indicators for each time step, country and income quantile.
 
-\subsubsection{Calculation of GDP per capita
-(\$/pers/year)}\label{calculation-of-gdp-per-capita-pers}
 
-\begin{equation}
- pc\_gdp[t,c] = \frac{Y[t,c]}{l[t,c]} 10^3 
-\end{equation}
-
-
-The factor \(10^3\) allows the conversion in dollars per person.
-
-\subsubsection{Population by quantile (in
+\subsubsection{Temporary variables for global population and by quantile (in
 thousands)}\label{population-by-quantile-in-thousands}
-
-\begin{equation}
- qpop[t,c,q] = \frac{l[t,c]}{nb\_quantile} 
-\end{equation}
-
 
 \subsubsection{Income elasticity - CO2
 price}\label{income-elasticity---co2-price}
@@ -1316,20 +1264,20 @@ The carbon tax burden and mitigation costs are equal, calculated with the functi
 \subsubsection{Consumption per Quantile}\label{consumption-per-quantile}
 
 \begin{multline}
-  \text{qc\_base}[t,c,q] = \text{nb\_quantile} \times \text{CPC}[t,c] \times \text{quantile\_income\_shares}[t,c,q]  \\
+  \text{qcpc\_base}[t,c,q] = \text{nb\_quantile} \times \text{CPC}[t,c] \times \text{quantile\_income\_shares}[t,c,q]  \\
  \times \frac{1 + \text{LOCAL\_DAMFRAC\_KW}[t,c]}{1 - \text{ABATEFRAC}[t,c]} 
 \end{multline}
 
 
 \begin{multline}
-  \text{qc\_post\_damage\_abatement}[t,c,q] = max \biggl[\text{qc\_base}[t,c,q] - \text{nb\_quantile} \times \text{CPC}[t,c] \\
+  \text{qcpc\_post\_damage\_abatement}[t,c,q] = max \biggl[\text{qcpc\_base}[t,c,q] - \text{nb\_quantile} \times \text{CPC}[t,c] \\
  \times \biggl(\text{LOCAL\_DAMFRAC\_KW}[t,c] \times \text{damage\_dist}[t,c,q] \\
  - \frac{1 + \text{LOCAL\_DAMFRAC\_KW[t,c]}}{1 - \text{ABATEFRAC}[t,c]} \times \text{ABATEFRAC}[t,c] \times \text{abatement\_cost\_dist}[t,c,q]\biggr), 10^{-8} \biggr] 
 \end{multline}
 
 
 \begin{multline}
-  \text{qc\_post\_tax}[t,c,q] = \text{qc\_post\_damage\_abatement}[t,c,q] \\
+  \text{qcpc\_post\_tax}[t,c,q] = \text{qcpc\_post\_damage\_abatement}[t,c,q] \\
  - (\text{nb\_quantile} \times \text{tax\_pc\_revenue}[t,c] \times \text{carbon\_tax\_dist}[t,c,q]) 
 \end{multline}
 
@@ -1340,7 +1288,7 @@ The carbon tax burden and mitigation costs are equal, calculated with the functi
   is increased by the product of the total per capita revenue from the
   carbon tax and the share of its recycling to each quantile:
   \begin{multline}
-    \text{qc\_post\_recycle}[t,c,q] = \text{qc\_post\_tax}[t,c,q] \\
+    \text{qcpc\_post\_recycle}[t,c,q] = \text{qcpc\_post\_tax}[t,c,q] \\
 + (\text{nb\_quantile} \times \text{country\_pc\_dividend}[t,c] \times \text{recycle\_share}[c,q])
   \end{multline}
 
@@ -1349,30 +1297,29 @@ The carbon tax burden and mitigation costs are equal, calculated with the functi
   is increased by the product of the carbon tax revenue per capita from
   each country's emissions and its initial tax burden:
   \begin{multline}
-    \text{qc\_post\_recycle}[t,c,q] = \text{qc\_post\_tax}[t,c,q] \\
+    \text{qcpc\_post\_recycle}[t,c,q] = \text{qcpc\_post\_tax}[t,c,q] \\
  + (\text{nb\_quantile} \times \text{tax\_pc\_revenue}[t,c] \times \text{carbon\_tax\_dist}[t,c,q]) 
   \end{multline}
 
   \subsubsection{Calculation of per capita consumption}\label{calculation-per-capita-consumption}
 
 \item
-Total consumption per country after recycling:
+Sum of country quantiles' consumption per capita after abatement, damages and revenue recycling (thousand USD2017 per (capita per quantile) per year)
   \begin{equation}
-    \text{total\_c\_post\_recycle}[t,c] = \sum_q \text{qc\_post\_recycle}[t,c,q]
+    \text{sum\_qcpc\_post\_recycle}[t,c] = \sum_q \text{qcpc\_post\_recycle}[t,c,q]
 \end{equation}
 
 \item
   Per capita consumption after recycling:
   \begin{equation}
-    \text{CPC\_post}[t,c] = \frac{\text{total\_c\_post\_recycle}[t,c]}{\text{nb\_quantile}} 
+    \text{CPC\_post}[t,c] = \frac{\text{sum\_qcpc\_post\_recycle}[t,c]}{\text{nb\_quantile}} 
 \end{equation}
 
 \item
-  Proportion of per capita quantile consumption (\%):
+  Share of country consumption by quantile (\%):
   \begin{equation}
- \text{qc\_share}[t,c,q] = \frac{\text{qc\_post\_recycle}[t,c,q]}{\text{total\_c\_post\_recycle}[t,c]} \times 100
+ \text{qc\_share}[t,c,q] = \frac{\text{qcpc\_post\_recycle}[t,c,q]}{\text{sum\_qcpc\_post\_recycle}[t,c]} \times 100
 \end{equation}
-
 
 
 \subsubsection{Calculation of the Gini Index and the Poverty Rate}\label{calculation-of-the-gini-index-and-the-poverty-rate}
@@ -1389,30 +1336,6 @@ distribution of consumption.
     \texttt{gini\_cons[t,c]} = \texttt{gini} \Bigl( \texttt{convert(Vector\{Real\}}, \texttt{qc\_share[t,c,:])} \Bigr) \times 100
   \end{equation}
 
-\item
-  If the Gini index is between 0 and 100, we can calculate $\sigma$ and $\mu$, taking care to maintain homogeneous units.
-  \begin{equation}
-  \sigma_{\text{cons}}[t,c] = \sqrt{2} \times \href{https://docs.julialang.org/en/v1/stdlib/Statistics/#Statistics.quantile}{\text{quantile}} \left(\mathcal{N}(0,1), \frac{gini\_cons[t,c]/100 + 1}{2}\right) 
-  \end{equation}
-
-  \begin{equation}
- \mu_{\text{cons}}[t,c] = \log(CPC[t,c] \times 10^3) - \frac{(\sigma_{\text{cons}})^2}{2} 
-\end{equation}
-
-\item
-  The \textbf{poverty rate} is calculated from a \href{https://juliastats.org/Distributions.jl/stable/univariate/#Probability-Evaluation}{cumulative distribution function} 
-  of a normal distribution with mean \texttt{$\mu\_{\text{cons}}[t,c]$}
-  and standard deviation \texttt{$\sigma\_{\text{cons}}[t,c]$}, evaluated at the
-  logarithm of the poverty line. It reflects the percentage of the
-  population that falls below the poverty line, according to a normal distribution:
-
-  \begin{equation}
-    \text{poverty\_line} = \text{daily\_poverty\_line} \times 365
-  \end{equation}
-
-\begin{equation}
- \text{poverty\_rate\_cons}[t,c] = {\text{cdf}} \Bigl( \mathcal{N}(\mu_{\text{cons}},\sigma_{\text{cons}}), \log(\text{poverty\_line}) \Bigr) \times 100 
-\end{equation}
 
 \subsubsection{Regional and global calculations}\label{regional-and-global-calculations}
 \end{itemize}
@@ -1448,19 +1371,6 @@ Country indices \(c\) and regional indices \(rwpp\) are mapped using
     \texttt{convert} \Bigl( \texttt{Vector\{Real\},\ vec(qpop[t,\ :,\ :])} \Bigr) \biggr) \times 100
     \end{multline}
 
-\item
-  The population in poverty (\texttt{poverty\_population\_cons\_rwpp})
-  for a given region is the sum of the populations in poverty of the
-  countries in that region, cleaned of missing values:
-  \begin{equation}
-  \text{poverty\_population\_cons\_rwpp}{[}t,\ rwpp{]} = \sum_{c \in rwpp} \text{poverty\_population\_cons}{[}t,\ c{]}
-  \end{equation}
-
-\item
-  Population living in poverty at global level :
-  \begin{equation}
-    \text{global\_poverty\_population\_cons}{[}t{]} = \sum_{c} \text{poverty\_population\_cons}{[}t,\ c{]}
-    \end{equation}
 \end{itemize}
 
 \section{revenue\_recycle.jl}\label{revenue_recycle.jl}
@@ -1510,11 +1420,6 @@ dependent}\label{time-and-country-dependent-12}
 \item
   \texttt{global\_recycle\_share}: Share of country revenues that are
   recycled globally in the form of international transfers (1 = 100\%).
-\item
-  \texttt{list\_llmic\_flag}: Equal to 1 if the country is on the list
-  of low and middle income countries, 0 otherwise.
-\item
-  \texttt{list\_risk\_index}: Risk index.
 \end{itemize}
 
 \subsubsection{Independent}\label{Independent-20}
@@ -1535,20 +1440,6 @@ dependent}\label{time-and-country-dependent-12}
 \item
   \texttt{switch\_global\_pc\_recycle}: Boolean, carbon tax revenues are
   recycled globally on an equal per capita basis (1).
-\item
-  \texttt{switch\_dam\_rel\_llmic\_recycle}: Boolean, carbon tax
-  revenues are recycled globally in proportion to population-weighted
-  relative damages in low- and middle-income countries (LLMIC) (1).
-\item
-  \texttt{switch\_dam\_abs\_llmic\_recycle}: Boolean, carbon tax
-  revenues are recycled globally in proportion to absolute damage in
-  LLMICs (1).
-\item
-  \texttt{switch\_risk\_llmic\_recycle}: Boolean, carbon tax revenues
-  are recycled according to a population-weighted risk index in LLMICs
-  (1).
-\item
-  \texttt{nb\_country}: Number of countries.
 \end{itemize}
 
 \subsection{Variables}\label{variables-7}
@@ -1566,14 +1457,7 @@ dependent}\label{time-and-country-dependent-12}
   countries per person per year.
 \item
   \texttt{global\_revenue}: Carbon tax revenue, derived from the total
-  recycled revenue of all countries (in USD2017 per year).
-\item
-  \texttt{global\_pc\_revenue}: Carbon tax revenue per person per year, derived
-  from the total recycled revenue of all countries (in thousands of
-  dollars per person per year).
-\item
-  \texttt{llmic\_population}: Total population in low- and middle-income
-  countries (in thousands).
+  recycled revenue of all countries (in thousand USD2017 per year).
   \item 
   \texttt{revenue\_recycled\_global\_level}: Sum for all countries of \texttt{tax\_revenue} recycled at a \texttt{global\_recycle\_share}. 
   Mesured in thousands of USD2017 per year.
@@ -1584,19 +1468,7 @@ dependent}\label{time-and-country-dependent-13}
 
 \begin{itemize}
 \tightlist
-\item
-  \texttt{TRANSFRAC\_dam\_rel\_llmic}: Proportion of damage suffered in
-  the country in relation to global damage (share of global net GDP lost
-  per person).
-\item
-  \texttt{TRANSFRAC\_dam\_abs\_llmic}: Proportion of damage suffered in
-  the country in relation to global damage (share of global net GDP lost
-  per person in LLMIC).
-\item
-  \texttt{TRANSFRAC\_risk\_llmic}: Proportion of risk based on the
-  population-weighted 2023 risk index in LLMIC.
-\item
-  \texttt{country\_pc\_dividend\_llmic}: Tax income per person in LLMIC, in thousands of USD2017 per person per year.
+
 \item
   \texttt{tax\_revenue}: Carbon tax revenue for a given country, in USD2017 per year.
 \item
@@ -1617,85 +1489,6 @@ dependent}\label{time-and-country-dependent-13}
 \end{itemize}
 
 \subsection{Equation}\label{equation-2}
-
-The \texttt{run\_timestep} function calculates the proportion of income
-redistributed according to various criteria, including relative and
-absolute damage or the risk index, specifically for low- and
-middle-income countries (LLMIC).
-
-It begins by identifying the indices of countries considered to be poor
-(LLMIC) and calculates the total population of these countries at time
-\texttt{t} :
-\begin{equation}
-\text{llmic\_population}[t] = \sum_{c \in \text{LLMIC}}l[t, c]
-\end{equation}
-
-
-\subsubsection{Relative and absolute damages and risk index for
-LLMICs}\label{relative-and-absolute-damages-and-risk-index-for-llmics}
-
-\begin{itemize}
-  \item If the country \texttt{c} is not in the list of poor countries, all three
-  variables are set to zero:
-
-  \begin{equation}
-    \left. \begin{array}{l}
-    \text{TRANSFRAC\_dam\_rel\_llmic}[t,c] \\
-    \text{TRANSFRAC\_dam\_abs\_llmic}[t,c] \\
-    \text{TRANSFRAC\_risk\_llmic}[t,c]
-    \end{array} \right\}
-    = 0
-    \end{equation}
-
-\item Otherwise, for the first time step, each redistribution fraction for
-LLMICs is initialised as the inverse of the total number of poor
-countries:
-
-\begin{equation}
-\left. \begin{array}{l}
-\text{TRANSFRAC\_dam\_rel\_llmic}[t = 1,c] \\
-\text{TRANSFRAC\_dam\_abs\_llmic}[t = 1,c] \\
-\text{TRANSFRAC\_risk\_llmic}[t = 1,c]
-\end{array} \right\}
-= \frac{1}{\text{Number of LLMICs}}
-\end{equation}
-
-\item For the following time steps, we have :
-
-\begin{itemize}
-\tightlist
-\item
-  Relative damage (\texttt{TRANSFRAC\_dam\_rel\_llmic}): maximum between
-  local damage (\texttt{LOCAL\_DAMFRAC\_KW}) and 0, multiplied by the
-  population of the country (\texttt{l}), divided by the sum of this
-  product over all LLMICs.
-\begin{multline}
-\text{TRANSFRAC\_dam\_rel\_llmic}[t,c] = \\
-\frac{\max \Bigl(\text{LOCAL\_DAMFRAC\_KW}[t,c], 0 \Bigr) \cdot l[t,c]}{\sum_{c \in LLMIC} \max \Bigl(\text{LOCAL\_DAMFRAC\_KW}[t,c], 0 \Bigr) \cdot l[t,c] }
-\end{multline}
-
-
-\item
-  Absolute damage (\texttt{TRANSFRAC\_dam\_abs\_llmic}): the operation
-  is the same, substituting population \texttt{l} for gross output
-  \texttt{Y}.
-  \begin{multline}
-    \text{TRANSFRAC\_dam\_abs\_llmic}[t,c] = \\
-    \frac{\max \Bigl(\text{LOCAL\_DAMFRAC\_KW}[t,c], 0 \Bigr) \cdot Y[t,c]}{\sum_{c \in LLMIC} \max \Bigl(\text{LOCAL\_DAMFRAC\_KW}[t,c], 0 \Bigr) \cdot Y[t,c] }
-    \end{multline}
-
-
-\item
-  Risk index (\texttt{TRANSFRAC\_risk\_llmic}): product of the risk
-  index of country \texttt{c} (\texttt{list\_risk\_index{[}c{]}}) by its
-  population \texttt{l}, divided by the sum of this product over all
-  LLMICs.
-  \begin{equation}
-    \text{TRANSFRAC\_risk\_llmic}[t,c] = \frac{list\_risk\_index[c] \cdot l[t,c]}{\sum_{c \in LLMIC} list\_risk\_index[c] \cdot l[t,c]}
-    \end{equation}
-
-\end{itemize}
-\end{itemize}
 
 
 \subsubsection{Carbon tax revenue}\label{carbon-tax-revenue}
@@ -1784,39 +1577,6 @@ Carbon tax revenues are recycled at a global level:
  \text{country\_pc\_dividend\_global\_transfers}[t,c] = \frac{\text{revenue\_recycled\_global\_level}[t]}{\sum_c(l[t,c]) \times 10^3} 
 \end{equation}
 
-\item
-  \texttt{switch\_dam\_rel\_llmic\_recycle\ =\ 1}; carbon tax revenues
-  are recycled globally in proportion to population-weighted relative
-  damages in low- and middle-income countries (LLMIC). In LLMICs:
- \begin{multline}
-  \text{country\_pc\_dividend\_global\_transfers}[t,c] = \\
-  \frac{\text{revenue\_recycled\_global\_level}[t,c] \times \text{TRANSFRAC\_dam\_rel\_llmic[t,c]}}{l[t,c] \times 10^3}
- \end{multline}
-  Otherwise:
-  \begin{equation}
-  \text{country\_pc\_dividend\_global\_transfers}[t,c] = 0
-  \end{equation}
-
-\item
-  \texttt{switch\_dam\_abs\_llmic\_recycle\ =\ 1}; carbon tax revenues
-  are recycled globally in proportion to absolute population-weighted
-  damages in low- and middle-income countries (LLMIC). In LLMICs:
-  \begin{multline}
-   \text{country\_pc\_dividend\_global\_transfers}[t,c] = \\
-   \frac{\text{revenue\_recycled\_global\_level}[t] \times \text{TRANSFRAC\_dam\_abs\_llmic[t,c]}}{l[t,c] \times 10^3}
-  \end{multline}
-   Otherwise:
-   \begin{equation}
-   \text{country\_pc\_dividend\_global\_transfers}[t,c] = 0
-   \end{equation}
-
-\item
-  \texttt{switch\_risk\_llmic\_recycle\ =\ 1}; carbon tax revenues are recycled according to a population-weighted risk index in LLMIC. 
-  In LLMICs:
-  \begin{multline}
-   \text{country\_pc\_dividend\_global\_transfers}[t,c] = \\
-   \frac{\text{revenue\_recycled\_global\_level}[t] \times \text{TRANSFRAC\_risk\_llmic}}{l[t,c] \times 10^3}
-  \end{multline}
 
    Otherwise:
    \begin{equation}
@@ -1856,7 +1616,7 @@ equitably distributed welfare (EDE) as a function of inequality aversion
 \begin{itemize}
 \tightlist
 \item
-  \texttt{qc\_post\_recycle}: Per capita quantile consumption after
+  \texttt{qcpc\_post\_recycle}: Per capita quantile consumption after
   redistribution of the recycling tax (in thousands of USD2017 per
   person per year). It depends on time, country and quantile.
 \item
@@ -1896,7 +1656,7 @@ calculated as follows:
 country}\label{ede-consumption-by-country}
 
 \begin{equation}
-  cons\_EDE\_country[t,c] = \left( \frac{1}{nb\_quantile} \sum_q (qc\_post\_recycle[t,c,q]^{(1-\eta)} ) \right)^{\frac{1}{(1-\eta)}}
+  cons\_EDE\_country[t,c] = \left( \frac{1}{nb\_quantile} \sum_q (qcpc\_post\_recycle[t,c,q]^{(1-\eta)} ) \right)^{\frac{1}{(1-\eta)}}
 \end{equation}
 
 \paragraph{EDE consumption by
@@ -1919,7 +1679,7 @@ For each region, the country indices \(c\) are mapped using
 \paragraph{Welfare by country}\label{welfare-by-country}
 
 \begin{equation}
-  welfare\_country[t,c] = \left( \frac{l[t,c]}{nb\_quantile} \right) \sum_q \left( \frac{qc\_post\_recycle[t,c,q]^{(1-\eta)}}{(1-\eta)} \right)
+  welfare\_country[t,c] = \left( \frac{l[t,c]}{nb\_quantile} \right) \sum_q \left( \frac{qcpc\_post\_recycle[t,c,q]^{(1-\eta)}}{(1-\eta)} \right)
 \end{equation}
 
 \paragraph{Welfare by region}\label{welfare-by-region}
@@ -1944,7 +1704,7 @@ calculated using the logarithm :
 country}\label{ede-consumption-by-country-1}
 
 \begin{equation}
-  cons\_EDE\_country[t,c] = \exp \left( \frac{1}{nb\_quantile} \sum_q \log(qc\_post\_recycle[t,c,q]) \right)
+  cons\_EDE\_country[t,c] = \exp \left( \frac{1}{nb\_quantile} \sum_q \log(qcpc\_post\_recycle[t,c,q]) \right)
 \end{equation}
 
 \paragraph{EDE consumption by
@@ -1963,7 +1723,7 @@ region}\label{ede-consumption-by-region-1}
 \paragraph{Welfare by country}\label{welfare-by-country-1}
 
 \begin{equation}
-  welfare\_country[t,c] = \left( \frac{l[t,c]}{nb\_quantile} \right) \sum_q \log(qc\_post\_recycle[t,c,q])
+  welfare\_country[t,c] = \left( \frac{l[t,c]}{nb\_quantile} \right) \sum_q \log(qcpc\_post\_recycle[t,c,q])
 \end{equation}
 
 \paragraph{Welfare by region}\label{welfare-by-region-1}
@@ -2129,13 +1889,13 @@ carbon tax, from the start year to the end year of the model.
 \end{Shaded}
 \normalsize
 
-\subsubsection{\texorpdfstring{\texttt{save\_nicev2\_results}}{Save\_nicev2\_results}}\label{save_nicev2_results}
+\subsubsection{\texorpdfstring{\texttt{save\_nice2020\_results}}{Save\_nice2020\_results}}\label{save_nicev2_results}
 
 \paragraph{Description}\label{description-2}
 
 This function creates a directory of files to store the results of a
 model, dividing the model output by global, regional and quantile
-levels. It also manages the recycling of CO2 tax revenues.
+levels. A different sub-folder name is used for each type of revenue recycle (careful: revenue recycling type must be set with the use of the parameter switches).
 
 \paragraph{Arguments}\label{arguments-1}
 
@@ -2274,9 +2034,9 @@ The function performs the following operations:
 %
 % It has an equivalent role to the \texttt{nice\_v2\_module.jl} file.
 
-\section{nice\_v2\_module.jl}\label{nice_v2_module.jl}
+\section{nice2020\_module.jl}\label{nice_v2_module.jl}
 
-This file defines the \texttt{create\_nice\_v2} function, which creates
+This file defines the \texttt{create\_nice2020} function, which creates
 a versison of the NICE 2020 simulated model by coupling the FAIRv2.0
 model to a simple damage function.
 
@@ -2329,26 +2089,25 @@ loaded from the \texttt{components} folder:
   \texttt{damages.jl}: Estimates the economic damage caused by climate
   change.
 \item
-  net\_economy.jl`: Calculates the net savings after taking into account
+  net\_economy.jl: Calculates the net savings after taking into account
   damage and abatement costs.
 \item
   \texttt{revenue\_recycle.jl}: Processes the recycling of revenues
   generated by taxes or emission permits.
 \item
-  \texttt{quantile\_distribution.jl} : Analyses the distribution of
+  \texttt{quantile\_reycle.jl} : Analyses the distribution of
   impacts or costs across different quantiles of the population.
 \item
   \texttt{welfare.jl}: Evaluates general welfare, taking into account
   economic and environmental aspects.
 \end{itemize}
 
-\subsection{\texorpdfstring{\texttt{create\_nice\_v2()}
-function}{create\_nice\_v2() function}}\label{create_nice_v2-function}
+\subsection{\texorpdfstring{\texttt{create\_nice2020()}
+function}{create\_nice2020() function}}\label{create_nice_v2-function}
 
 The function is based on the Mimi-FAIRv2 model with an emissions and
 radiative forcing scenario defined according to SSP2-45, between 2020
-and 2300. 12 RICE regions
-(\texttt{{[}"US",\ "EU",\ "Japan",\ "Russia",\ "Eurasia",\ "China",\ "India",\ "MidEast",\ "Africa",\ "LatAm",\ "OHI",\ "OthAsia"{]}})
+and 2300. 20 World Population Prospects
 and 10 quantiles are created, \texttt{c} is defined as the symbol
 representing the countries (\texttt{countries}).
 
@@ -2357,9 +2116,7 @@ the FAIR carbon cycle, and this model (FAIR) is coupled with scaling,
 regional damages, net production, income recycling, quantile recycling
 and welfare valuation components, in that order.
 
-By default, the absence of income recycling is defined, and a population
-matrix is set (time, country). We define the mapping of countries to the
-RICE and WPP regions and the number of quantiles that will be used.
+By default, tax revenues are not recycled (i.e., they are returned to each quantile). We define the mapping of countries to the WPP regions and the number of quantiles that will be used.
 
 \subsection{Initial conditions}\label{initial-conditions}
 Initial conditions are updated for different
@@ -2369,7 +2126,9 @@ specific cycle and updates the parameters associated with that cycle.
 \subsubsection{\texorpdfstring{The \texttt{update\_param!}
 function}{The update\_param! function}}\label{the-update_param-function}
 
-The \texttt{update\_param!} function is used for updating model parameters.
+An explainer for the Mimi framework syntax for setting and updating parameters can be found at \url{https://www.mimiframework.org/Mimi.jl/stable/howto/howto_5/}.
+
+The \texttt{update\_param!} function is used for setting unshared model parameters.
 It generally takes four arguments:
 
 \begin{enumerate}
@@ -2454,7 +2213,7 @@ of a specific parameter for a given component of the model.
 \subsection{\texorpdfstring{CO2 emissions :
 \texttt{emissions.jl}}{CO2 emissions : emissions.jl}}\label{co2-emissions-emissions.jl}
 
-We map countries to rice regions with \texttt{mapcrrice}, and update the
+We map countries to WPP regions with \texttt{mapcrwpp}, and update the
 emission rate \(\sigma\).
 
 \subsection{\texorpdfstring{Temperature :
@@ -2492,8 +2251,7 @@ savings rate \(s\), and connect the population parameter \texttt{l}.
   (\texttt{switch\_scope\_recycle\ =\ 1}), and all other Booleans are
   disabled. The share of revenue lost (\texttt{lost\_revenue\_share}) is
   set to 0.
-\item
-  Lists of low- and middle-income countries and risk index are defined.
+
 \end{itemize}
 
 \subsection{\texorpdfstring{Quantiles :
@@ -2513,8 +2271,7 @@ savings rate \(s\), and connect the population parameter \texttt{l}.
 \item
   The share of income recycling for a quantile is uniformly defined as
   the inverse of the total number of quantiles.
-\item
-  The poverty line is set at 2.15 USD2017/day.
+
 \item
   The demographic parameters of population and correspondence between
   countries and WPP regions are connected. The Boolean for activating
@@ -2557,7 +2314,7 @@ The general syntax for creating a connection is :
   component.
 \end{itemize}
 
-\subsection{Components}\label{components}
+Component connections are: 
 
 \begin{itemize}
 \tightlist
@@ -2602,7 +2359,10 @@ The general syntax for creating a connection is :
   \texttt{Y} is calculated by \texttt{neteconomy} and used for
   \texttt{revenue\_recycle} and \texttt{quantile\_recycle}.
 \item
-  \texttt{CPPC} is calculated by \texttt{neteconomy} and used for
+  \texttt{CPC} is calculated by \texttt{neteconomy} and used for
+  \texttt{quantile\_recycle}.
+  \item
+  \texttt{Y\_pc} is calculated by \texttt{neteconomy} and used for
   \texttt{quantile\_recycle}.
 \item
   \texttt{country\_pc\_dividend} is calculated by
@@ -2611,273 +2371,9 @@ The general syntax for creating a connection is :
   \texttt{tax\_pc\_revenue} is calculated by \texttt{revenue\_recycle}
   and is used for \texttt{quantile\_recycle}.
 \item
-  \texttt{qc\_post\_recycle} is calculated by \texttt{quantile\_recycle}
+  \texttt{qcpc\_post\_recycle} is calculated by \texttt{quantile\_recycle}
   and is used for \texttt{welfare}.
 \end{itemize}
 
-\section{main\_runs.jl}\label{main_runs.jl}
-
-This file is the main entry point for running simulations of the NICE
-2020 model. It orchestrates the simulation process by loading the
-necessary components, initialising the model and running the
-simulations. This file depends on \texttt{nice\_v2\_module.jl} to create
-a version of the simulated model and on \texttt{helper\_functions.jl}
-for other useful functions and to save the results.
-
-It requires the use of the Mimi (to develop and run integrated climate
-impact assessment models) and MimiFAIRv2 (implementation of the FAIR
-model within the Mimi framework) packages.
-
-\subsection{Creating the base model}\label{creating-the-base-model}
-
-\texttt{base\_model\ =\ nice\_v2\_module.create\_nice\_v2()} creates a
-versison of the simulated model by calling the \texttt{create\_nice\_v2}
-function in the \texttt{nice\_v2\_module} module. This function
-configures the model with specific economic and climate data, as well as
-dimensions such as countries, RICE regions, and income quantiles.
-
-\begin{itemize}
-\item
-  Model dimensions: The variables \texttt{nb\_steps},
-  \texttt{nb\_regions}, \texttt{nb\_country}, and \texttt{nb\_quantile}
-  are used to store the number of time steps, regions, countries, and
-  income quantiles in the model. This information is extracted using the
-  dim\_keys function with the appropriate dimensions (\texttt{:time},
-  \texttt{:regionrice}, \texttt{:country}, \texttt{:quantile}).
-\item
-  Sharing of recycled carbon tax revenues: The \texttt{recycle\_share}
-  matrix is defined to represent the share of recycled carbon tax
-  revenues that each region-quantile pair receives. It is initialised by
-  normalising the value of each country quantile to
-  \(\frac{1}{\text{nb quantile}}\).
-\item
-  Carbon taxation paths :
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Global CO2 tax trajectory: \texttt{global\_co2\_tax} is defined using
-  the \texttt{linear\_tax\_trajectory} function in the
-  \texttt{nice\_v2\_module}, which creates a linear CO2 tax trajectory
-  from the year 2020 to 2200, starting at 5 currency units per tonne of
-  CO2 and increasing by 8 units each year.
-\item
-  Reference CO2 tax trajectory: In a similar way,
-  \texttt{reference\_co2\_tax} defines a CO2 tax trajectory with
-  different starting and increasing values (8.5 and 21, respectively),
-  over the same period.
-\end{enumerate}
-
-\subsection{Results to be exported}\label{results-to-be-exported}
-
-\subsubsection{Climate model without mitigation
-measures}\label{climate-model-without-mitigation-measures}
-
-\begin{itemize}
-\item
-  \textbf{Model initialization}: A version of the simulated model
-  \texttt{nice\_v2} is created without a CO2 mitigation policy. This
-  version is obtained from the \texttt{nice\_v2\_module} by calling the
-  \texttt{create\_nice\_v2()} function. This model includes user-defined
-  specifications but does not implement a CO2 mitigation policy.
-\item
-  \textbf{Parameter update}:
-
-  \begin{itemize}
-  \item
-    The emission control regime is set to \texttt{3} using the
-    \texttt{update\_param!} function. This corresponds to a
-    country-by-country abatement rate regime, as opposed to a global or
-    country-by-country carbon tax.
-  \item
-    The \(\mu\_input\) parameter is updated to be an array of zeros,
-    with dimensions corresponding to the number of steps
-    (\texttt{nb\_steps}) and the number of countries
-    (\texttt{nb\_country}). This indicates that no CO2 mitigation
-    measures are applied in the base model.
-  \end{itemize}
-\item
-  \textbf{Run the model} : The model is run using the
-  \texttt{run(bau\_model)} function. This simulates the base model
-  without a CO2 mitigation policy and calculates the corresponding
-  results.
-\item
-  \textbf{Saving results} : The results of the base model are saved to a
-  specified directory (\texttt{output\_directory\_bau}) using the
-  \texttt{save\_nicev2\_results} function in the
-  \texttt{nice\_v2\_module}. The \texttt{revenue\_recycling} option is
-  set to \texttt{false}, indicating that revenue recycling is not taken
-  into account in this scenario.
-\end{itemize}
-
-\subsubsection{No redistribution of income generated by environmental
-policies to
-households.}\label{no-redistribution-of-income-generated-by-environmental-policies-to-households.}
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{switch\_recycle\ =\ 0}: Here, the \texttt{switch\_recycle}
-  variable is set to \texttt{0}, meaning that the income recycling
-  functionality is deactivated (\texttt{OFF}).
-\end{itemize}
-
-\subsubsection{Documentation of carbon tax scenarios for a 2-degree
-budget}\label{documentation-of-carbon-tax-scenarios-for-a-2-degree-budget}
-
-Simulation of climate policy scenarios aimed at keeping global warming
-below 2 degrees Celsius.
-
-\paragraph{A. Without revenue
-recycling}\label{a.-without-revenue-recycling}
-
-The absence of revenue recycling makes it possible to isolate the effect
-of the carbon tax on emissions without the potential offsetting effects
-of income redistribution.
-
-\subparagraph{i. Global carbon tax without revenue
-recycling}\label{i.-global-carbon-tax-without-revenue-recycling}
-
-This scenario simulates the effect of a global carbon tax without income
-recycling. The aim is to assess the impact of a uniform global tax
-policy on CO2 emissions, without redistributing the revenues generated
-by this tax to households or businesses.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Initialise the model}: Create a basic version of the
-  \texttt{nice\_v2} model using the \texttt{create\_nice\_v2()} function
-  in the \texttt{nice\_v2\_module} module.
-\item
-  \textbf{Scenario configuration} :
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Set the emission control regime to \texttt{1}, corresponding to a
-    global carbon tax.
-  \item
-    The global carbon tax parameter is updated with the
-    \texttt{global\_co2\_tax} variable.
-  \item
-    Deactivate revenue recycling using the \texttt{switch\_recycle}
-    variable.
-  \end{itemize}
-\item
-  \textbf{Run the model}: Simulate the model using the \texttt{run()}
-  function.
-\item
-  \textbf{Save results} : The results are saved in the specified
-  directory without the option to recycle income.
-\end{enumerate}
-
-\subparagraph{ii. Benchmark US carbon tax without revenue
-recycling}\label{ii.-benchmark-us-carbon-tax-without-revenue-recycling}
-
-This scenario explores the impact of a carbon tax applied differently in
-different countries, with a reference tax imposed in the United States,
-without revenue recycling.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Model initialization}: Creation of a new instance of the
-  \texttt{nice\_v2} model.
-\item
-  \textbf{Scenario configuration}:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    The emissions control regime is set to \texttt{2}, indicating a
-    country-specific carbon tax.
-  \item
-    US reference carbon tax parameter updated with
-    \texttt{reference\_co2\_tax} variable.
-  \item
-    Revenue recycling deactivated.
-  \end{itemize}
-\item
-  \textbf{Run the model}: Simulate the model for this specific scenario.
-\item
-  \textbf{Save results}: Results are saved without the revenue recycling
-  option.
-\end{enumerate}
-
-\paragraph{B. With total recycling of
-revenues}\label{b.-with-total-recycling-of-revenues}
-
-The aim is to evaluate how recycling the revenues generated by the
-carbon tax can influence economic and environmental results,
-particularly in the context of limiting global warming to 2 degrees
-Celsius.
-
-\subparagraph{Configuration of revenue
-recycling}\label{configuration-of-revenue-recycling}
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{switch\_recycle\ =\ 1}: Activates the recycling of carbon tax
-  revenues to households.
-\item
-  \texttt{switch\_scope\_recycle\ =\ 0}: Indicates that revenue
-  recycling takes place at national level (\texttt{0}) rather than at
-  global level (\texttt{1}).
-\item
-  The other variables (\texttt{switch\_global\_pc\_recycle},
-  \texttt{switch\_dam\_rel\_llmic\_recycle},
-  \texttt{switch\_dam\_abs\_llmic\_recycle},
-  \texttt{switch\_risk\_llmic\_recycle}) are deactivated (\texttt{0}),
-  meaning that income recycling does not follow these specific criteria
-  (recycling per person, limited to poor countries, proportional to
-  damage in cost/person or recycling by population-weighted risk index
-  in low- and middle-income countries).
-\end{itemize}
-
-\subparagraph{Models launched}\label{models-launched}
-
-\begin{itemize}
-\item
-  A national carbon tax (\texttt{2}, with
-  \texttt{1:\ "global\_carbon\_tax",\ 2:\ "country\_carbon\_tax",\ 3:\ "country\_abatement\_rate"}),
-  with revenue recycling at national level
-  (\texttt{switch\_scope\_recycle\ =\ 0}) and the US tax level as a
-  reference.
-\item
-  A global carbon tax (\texttt{1}), with revenue recycling at national
-  level (\texttt{switch\_scope\_recycle\ =\ 0}).
-\end{itemize}
-
-\paragraph{C. With partial revenue
-recycling}\label{c.-with-partial-revenue-recycling}
-
-\subparagraph{i. Recycling of 5\% of carbon tax revenues, redistributed
-in proportion to relative damages, weighted by population in low-income
-countries
-(LLMIC).}\label{i.-recycling-of-5-of-carbon-tax-revenues-redistributed-in-proportion-to-relative-damages-weighted-by-population-in-low-income-countries-llmic.}
-
-Carbon tax revenues are recycled on a global scale
-(\texttt{switch\_scope\_recycle\ =\ 1}), to households
-(\texttt{switch\_recycle\ =\ 1}) in poor countries according to a
-relative damage criterion
-(\texttt{switch\_dam\_rel\_llmic\_recycle\ =\ 1}), at a rate of 5\%
-(\texttt{global\_recycle\_share\ =\ 0.05}).
-
-\subparagraph{ii. Recycling of 5\% of carbon tax revenues,
-redistributed in proportion to absolute damage (in dollars per capita)
-in low-income countries
-(LLMIC).}\label{ii.-recycling-of-5-of-carbon-tax-revenues-redistributed-in-proportion-to-absolute-damage-in-dollars-per-capita-in-low-income-countries-llmic.}
-
-Carbon tax revenues are recycled on a global scale
-(\texttt{switch\_scope\_recycle\ =\ 1}), to households
-(\texttt{switch\_recycle\ =\ 1}) in proportion to the damage suffered
-(in dollars per capita) in low- to middle-income countries
-(\texttt{switch\_dam\_abs\_llmic\_recycle\ =\ 1}), at a rate of 5\%
-(\texttt{global\_recycle\_share\ =\ 0.05}).
 
 \end{document}

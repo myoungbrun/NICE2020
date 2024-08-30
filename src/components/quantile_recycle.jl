@@ -56,7 +56,7 @@
         for c in d.country
 
             ########################################################################################################
-            ## Calculate time-varying income elasticity of CO2 price exposure (requires pc_gdp units in $/person).
+            ## Calculate time-varying income elasticity of CO2 price exposure (requires  Y_pc units in $/person).
             # Note, hold elasticity constant at boundary value if GDP falls outside the study support range.
 
             if p.Y_pc[t,c] < p.min_study_gdp
@@ -121,10 +121,7 @@
 			#gini consumption
             v.gini_cons[t,c] =  gini(convert(Vector{Real}, v.qc_share[t,c,:])) *100
 
-            if v.gini_cons[t,c]  > 0 && v.gini_cons[t,c] <100
-                v.sigma_cons[t,c] = sqrt(2)*quantile(Normal(0,1), (v.gini_cons[t,c]/100 + 1)/2)
-    			v.mu_cons[t,c] =  log(p.CPC[t,c]*1e3) - ((v.sigma_cons[t,c])^2)/2 #CPC is in thousands USD per year
-            else
+            if !(v.gini_cons[t,c]  > 0 && v.gini_cons[t,c] <100)
                 v.gini_cons[t,c] = missing
             end
         end # country loop
@@ -138,7 +135,6 @@
         end # region loop
 
         v.CPC_post_global[t] = sum(v.sum_qcpc_post_recycle[t,:] .* p.l[t,:] ./ p.nb_quantile) / temp_pop_global
-
         v.gini_cons_global[t] = gini(convert(Vector{Real},vec(v.qcpc_post_recycle[t,:,:])), convert(Vector{Real},vec(temp_pop_quantile))) *100
 
     end # timestep

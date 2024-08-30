@@ -5,35 +5,6 @@
 # #------------------------------------------------------------------------------------------------------------------
 
 #####################################################################################################################
-# CALCULATE DAMAGE AND CO2 MITIGATION COST DISTRIBUTIONS ACROSS QUANTILES.
-#####################################################################################################################
-# Description: This function will calculate quantile distribution shares for the countries based on
-#              on a user-supplied income elasticity.
-#
-# Function Arguments:
-#
-#       elasticity    = Income elasticity of climate damages, mitigation costs, etc.
-#       income_shares = An array of quantile income shares (row = country, column = quantile).
-#--------------------------------------------------------------------------------------------------------------------
-
-function quantile_distribution(elasticity::Float64, income_shares, nb_country::Int64, nb_quantile::Int64)
-
-    # Apply elasticity to quantile income shares.
-    scaled_shares = income_shares .^ elasticity
-
-    # Allocate empty array for distribution across quantiles resulting from the elasticity.
-    updated_distribution = zeros(nb_country, nb_quantile)
-
-    # Loop through each country to calculate updated distributions.
-    for c in 1:nb_country
-        updated_distribution[c,:] = scaled_shares[c,:] ./ sum(scaled_shares[c,:])
-    end
-
-    return updated_distribution
-end
-
-
-#####################################################################################################################
 # CALCULATE DAMAGE, CO₂ MITIGATION COST, OR CO₂ TAX BURDEN DISTRIBUTIONS ACROSS A COUNTRY'S QUANTILES.
 #####################################################################################################################
 # Description: This function will calculate quantile distribution shares for a country based

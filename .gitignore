@@ -1,0 +1,7 @@
+# Tells git to ignore given files
+
+*.toc
+*.aux
+*.log
+*.synctex.gz
+

@@ -25,7 +25,7 @@
     ABATEFRAC          = Variable(index=[time, country])    # Cost of emissions reductions (share of annual gross output)
     ABATECOST 	       = Variable(index=[time, country]) 	# Cost of emissions reductions  (million 2017 USD per year)
 
-    GLOBAL_ABATEFRAC_full_abatement      = Variable(index=[time]) # Global cost of emissions reductions (share of global annual gross ouput)
+    GLOBAL_ABATEFRAC_full_abatement      = Variable(index=[time]) # Global cost of emissions reductions (share of global annual gross ouput) for 100% mitigation
 
     function run_timestep(p, v, d, t)
         # Define an equation for E
