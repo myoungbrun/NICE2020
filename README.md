@@ -70,9 +70,9 @@ explore(m)
 ```julia
 include("src/nice2020_module.jl")
 ```
-(3) Create an instance of this model. By loading the module, it's as if you imported a `create_nice_v2` function from one of your Julia packages.
+(3) Create an instance of this model. By loading the module, it's as if you imported a `create_nice2020` function from one of your Julia packages.
 ```julia
-m = MimiNICEv2.create_nice2020()
+m = MimiNICE2020.create_nice2020()
 ```
 (4) Run the model and explore results as you normally would.
 ```julia
