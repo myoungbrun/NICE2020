@@ -1,41 +1,3 @@
-function utility(consumption, η)
-    if η == 1
-        utility = log(consumption)
-    else
-        utility = consumption^(1 - η) / (1 - η)
-    end
-
-    return utility
-end
-
-
-function inverse_utility(utility, η)
-    if η == 1
-        consumption = exp(utility)
-    else
-        consumption = (utility * (1 - η))^(1 / (1 - η))
-    end
-
-    return consumption
-end
-
-
-function EDE(consumption, η, nb_quantile)
-    average_utility = (1 / nb_quantile) * sum(utility.(consumption, η))
-    EDE = inverse_utility(average_utility, η)
-    return EDE
-end
-
-
-function EDE_aggregated(country_level_EDE, population, η)
-    total_utility = sum(population .* utility.(country_level_EDE, η))
-    total_population = sum(population)
-    average_utility = total_utility / total_population
-    aggregated_EDE = inverse_utility(average_utility, η)
-    return aggregated_EDE
-end
-
-
 @defcomp welfare begin
 
     country         = Index()
@@ -75,4 +37,42 @@ end
         v.cons_EDE_global[t] = EDE_aggregated(v.cons_EDE_country[t,:], p.l[t,:], p.η)
         v.welfare_global[t] = sum(v.welfare_country[t,:])
     end # timestep
+end
+
+
+function utility(consumption, η)
+    if η == 1
+        utility = log(consumption)
+    else
+        utility = consumption^(1 - η) / (1 - η)
+    end
+
+    return utility
+end
+
+
+function inverse_utility(utility, η)
+    if η == 1
+        consumption = exp(utility)
+    else
+        consumption = (utility * (1 - η))^(1 / (1 - η))
+    end
+
+    return consumption
+end
+
+
+function EDE(consumption, η, nb_quantile)
+    average_utility = (1 / nb_quantile) * sum(utility.(consumption, η))
+    EDE = inverse_utility(average_utility, η)
+    return EDE
+end
+
+
+function EDE_aggregated(country_level_EDE, population, η)
+    total_utility = sum(population .* utility.(country_level_EDE, η))
+    total_population = sum(population)
+    average_utility = total_utility / total_population
+    aggregated_EDE = inverse_utility(average_utility, η)
+    return aggregated_EDE
 end
