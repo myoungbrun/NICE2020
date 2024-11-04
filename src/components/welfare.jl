@@ -40,6 +40,11 @@
 end
 
 
+"""
+    utility(consumption::Real, η::Real)
+
+Calculate CRRA utility of consumption given inequality aversion parameter η.
+"""
 function utility(consumption::Real, η::Real)
     if η == 1
         utility = log(consumption)
@@ -51,6 +56,11 @@ function utility(consumption::Real, η::Real)
 end
 
 
+"""
+    inverse_utility(utility::Real, η::Real)
+
+Calculate the consumption level that would give a certain utility with a CRRA function.
+"""
 function inverse_utility(utility::Real, η::Real)
     if η == 1
         consumption = exp(utility)
@@ -62,6 +72,14 @@ function inverse_utility(utility::Real, η::Real)
 end
 
 
+"""
+    EDE(consumption::Real, η::Real, nb_quantile::Int)
+
+Calculate Equally Distributed Equivalent (EDE) consumption at the country level.
+
+EDE consumption is the consumption level that would provide the same welfare if there were
+no inequalities.
+"""
 function EDE(consumption::AbstractVector, η::Real, nb_quantile::Int)
     average_utility = (1 / nb_quantile) * sum(utility.(consumption, η))
     EDE = inverse_utility(average_utility, η)
@@ -69,6 +87,11 @@ function EDE(consumption::AbstractVector, η::Real, nb_quantile::Int)
 end
 
 
+"""
+    EDE_aggregated(country_level_EDE::AbstractVector, population::AbstractVector, η::Real)
+
+Aggregate country-level EDE consumption.
+"""
 function EDE_aggregated(
     country_level_EDE::AbstractVector,
     population::AbstractVector,
