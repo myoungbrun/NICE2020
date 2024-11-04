@@ -40,7 +40,7 @@
 end
 
 
-function utility(consumption, η)
+function utility(consumption::Real, η::Real)
     if η == 1
         utility = log(consumption)
     else
@@ -51,7 +51,7 @@ function utility(consumption, η)
 end
 
 
-function inverse_utility(utility, η)
+function inverse_utility(utility::Real, η::Real)
     if η == 1
         consumption = exp(utility)
     else
@@ -62,14 +62,18 @@ function inverse_utility(utility, η)
 end
 
 
-function EDE(consumption, η, nb_quantile)
+function EDE(consumption::AbstractVector, η::Real, nb_quantile::Int)
     average_utility = (1 / nb_quantile) * sum(utility.(consumption, η))
     EDE = inverse_utility(average_utility, η)
     return EDE
 end
 
 
-function EDE_aggregated(country_level_EDE, population, η)
+function EDE_aggregated(
+    country_level_EDE::AbstractVector,
+    population::AbstractVector,
+    η::Real
+)
     total_utility = sum(population .* utility.(country_level_EDE, η))
     total_population = sum(population)
     average_utility = total_utility / total_population
