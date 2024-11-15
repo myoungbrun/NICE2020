@@ -17,11 +17,30 @@
     welfare_rwpp            = Variable(index=[time, regionwpp])             # WPP region welfare
     welfare_global          = Variable(index=[time])                        # Global welfare
 
+    α                       = Parameter()                                   # Environmental good weight in utility function
+    θ                       = Parameter()                                   # Elasticity of substitution between consumption and environmental good
+    Env                     = Parameter(index=[time, country, quantile])    # Environmental good consumption (**Unit to be defined**). Does not vary by quantile
+    E_bar                   = Parameter()                                   # Reference level of environment
+    Env_country             = Variable(index=[time, country])
+    Env_rwpp                = Variable(index=[time, regionwpp])
+
     function run_timestep(p, v, d, t)
+
         for c in d.country
-            v.cons_EDE_country[t,c] = EDE(p.qcpc_post_recycle[t,c,:], p.η, p.nb_quantile)
+            v.cons_EDE_country[t,c] = EDE(
+                p.qcpc_post_recycle[t,c,:],
+                p.Env[t,c,:],
+                p.E_bar,
+                p.η,
+                p.θ,
+                p.α,
+                p.nb_quantile
+            )
+
             v.welfare_country[t,c] = (
-                (p.l[t,c] / p.nb_quantile) * sum(utility.(p.qcpc_post_recycle[t,c,:], p.η))
+                (p.l[t,c] / p.nb_quantile) * sum(utility.(
+                    p.qcpc_post_recycle[t,c,:], p.Env[t,c,:], p.η, p.θ, p.α
+                ))
             )
         end # country loop
 
@@ -29,27 +48,46 @@
             country_indices = findall(x -> x == rwpp, p.mapcrwpp)
 
             v.cons_EDE_rwpp[t,rwpp] = EDE_aggregated(
-                v.cons_EDE_country[t,country_indices], p.l[t,country_indices], p.η
+                v.cons_EDE_country[t,country_indices],
+                p.E_bar,
+                p.η,
+                p.θ,
+                p.α,
+                p.l[t,country_indices]
             )
             v.welfare_rwpp[t,rwpp] = sum(v.welfare_country[t,country_indices])
         end # region loop
 
-        v.cons_EDE_global[t] = EDE_aggregated(v.cons_EDE_country[t,:], p.l[t,:], p.η)
+        v.cons_EDE_global[t] = EDE_aggregated(
+            v.cons_EDE_country[t,:],
+            p.E_bar,
+            p.η,
+            p.θ,
+            p.α,
+            p.l[t,:],
+        )
         v.welfare_global[t] = sum(v.welfare_country[t,:])
     end # timestep
 end
 
 
 """
-    utility(consumption::Real, η::Real)
+    utility(consumption::Real, environment::Real, η::Real, θ::Real, α::Real)
 
-Calculate CRRA utility of consumption given inequality aversion parameter η.
+Calculate utility of consumption and environmental goods.
+
+# Arguments
+- `η::Real`: inequality aversion (coefficient of relative risk aversion).
+- `θ::Real`: substitutability parameter. Accepts value between -∞ and 1, and cannot be null.
+- `α::Real`: share of `environment` the utility function. Must be in ``[0, 1]``.
 """
-function utility(consumption::Real, η::Real)
+function utility(consumption::Real, environment::Real, η::Real, θ::Real, α::Real)
     if η == 1
-        utility = log(consumption)
+        utility = log(
+            ((1 - α) * consumption^θ + α * environment^θ)^(1 / θ)
+        )
     else
-        utility = consumption^(1 - η) / (1 - η)
+        utility = ((1 - α) * consumption^θ + α * environment^θ)^((1 - η) / θ) / (1 - η)
     end
 
     return utility
@@ -57,15 +95,19 @@ end
 
 
 """
-    inverse_utility(utility::Real, η::Real)
+    inverse_utility(utility::Real, environment::Real, η::Real, θ::Real, α::Real)
 
-Calculate the consumption level that would give a certain utility with a CRRA function.
+Calculate the consumption that would give a certain utility with the `utility` function.
 """
-function inverse_utility(utility::Real, η::Real)
+function inverse_utility(utility::Real, environment::Real, η::Real, θ::Real, α::Real)
     if η == 1
-        consumption = exp(utility)
+        consumption = (
+            (1 / (1 - α)) * (exp(utility)^θ - α * environment^θ)
+        )^(1 / θ)
     else
-        consumption = (utility * (1 - η))^(1 / (1 - η))
+        consumption = (
+            (1 / (1 - α)) * ( ((1 - η) * utility)^(θ / (1 - η)) - α * environment^θ)
+        )^(1 / θ)
     end
 
     return consumption
@@ -73,33 +115,63 @@ end
 
 
 """
-    EDE(consumption::Real, η::Real, nb_quantile::Int)
+    EDE(
+    consumption::Vector,
+    environment::Union{Real,Vector},
+    baseline_environment::Real,
+    η::Real,
+    θ::Real,
+    α::Real,
+    nb_quantile::Int,
+)
 
 Calculate Equally Distributed Equivalent (EDE) consumption at the country level.
 
 EDE consumption is the consumption level that would provide the same welfare if there were
-no inequalities.
+no inequalities, given a shared `baseline_environment` level of envrionmental consumption.
 """
-function EDE(consumption::AbstractVector, η::Real, nb_quantile::Int)
-    average_utility = (1 / nb_quantile) * sum(utility.(consumption, η))
-    EDE = inverse_utility(average_utility, η)
+function EDE(
+    consumption::Vector,
+    environment::Union{Real,Vector},
+    baseline_environment::Real,
+    η::Real,
+    θ::Real,
+    α::Real,
+    nb_quantile::Int,
+)
+    average_utility = (1 / nb_quantile) * sum(utility.(
+        consumption, environment, η, θ, α
+    ))
+    EDE = inverse_utility.(average_utility, baseline_environment, η, θ, α)
     return EDE
 end
 
 
 """
-    EDE_aggregated(country_level_EDE::AbstractVector, population::AbstractVector, η::Real)
+    EDE_aggregated(
+    country_level_EDE::Vector,
+    baseline_environment::Real,
+    η::Real,
+    θ::Real,
+    α::Real,
+    population::Vector,
+)
 
 Aggregate country-level EDE consumption.
 """
 function EDE_aggregated(
-    country_level_EDE::AbstractVector,
-    population::AbstractVector,
-    η::Real
+    country_level_EDE::Vector,
+    baseline_environment::Real,
+    η::Real,
+    θ::Real,
+    α::Real,
+    population::Vector,
 )
-    total_utility = sum(population .* utility.(country_level_EDE, η))
+    total_utility = sum(population .* utility.(
+        country_level_EDE, baseline_environment, η, θ, α
+    ))
     total_population = sum(population)
     average_utility = total_utility / total_population
-    aggregated_EDE = inverse_utility(average_utility, η)
+    aggregated_EDE = inverse_utility(average_utility, baseline_environment, η, θ, α)
     return aggregated_EDE
 end

@@ -17,13 +17,15 @@ include("helper_functions.jl")
 include(joinpath("components", "gross_economy.jl"))
 include(joinpath("components", "abatement.jl"))
 include(joinpath("components", "emissions.jl"))
-
+include(joinpath("components", "environment.jl"))
 include(joinpath("components", "pattern_scale.jl"))
 include(joinpath("components", "damages.jl"))
 include(joinpath("components", "net_economy.jl"))
 include(joinpath("components", "revenue_recycle.jl"))
 include(joinpath("components", "quantile_recycle.jl"))
 include(joinpath("components", "welfare.jl"))
+
+
 
 
 # Create a function that couples FAIRv2.0 to the economic model components
@@ -55,8 +57,10 @@ function create_nice2020()
 	add_comp!(m, damages, after = :pattern_scale)
 	add_comp!(m, neteconomy, after = :damages)
 	add_comp!(m, revenue_recycle, after = :neteconomy)
+	add_comp!(m, environment, after = :neteconomy)
 	add_comp!(m, quantile_recycle, after = :revenue_recycle)
 	add_comp!(m, welfare, after = :quantile_recycle)
+
 
 	# Set parameters
 
@@ -71,14 +75,18 @@ function create_nice2020()
 	add_shared_param!(m, :η, 	1.5)
 	add_shared_param!(m, :σ, 	Matrix(emissionsrate), dims=[:time, :country])
 	add_shared_param!(m,  :s, Matrix(srate), dims=[:time, :country])
+	add_shared_param!(m, :α, 0.5)
+	add_shared_param!(m, :θ, 0.5)
+
+
 
 	# --------------------------------
 	# FAIR Initial (2020) Conditions
 	# --------------------------------
 
-	update_param!(m, :aerosol_plus_cycles, :aerosol_plus_0, init_aerosol[!,:concentration])
-	update_param!(m, :aerosol_plus_cycles, :R0_aerosol_plus, Matrix(init_aerosol[!, [:R1, :R2, :R3, :R4]]))
-	update_param!(m, :aerosol_plus_cycles, :GU_aerosol_plus_0, init_aerosol[!,:GU])
+	update_param!(m, :aerosol_plus_cycles, :aerosol_plus_0, init_aerosol[:, :concentration])
+	update_param!(m, :aerosol_plus_cycles, :R0_aerosol_plus, Matrix(init_aerosol[:, [:R1, :R2, :R3, :R4]]))
+	update_param!(m, :aerosol_plus_cycles, :GU_aerosol_plus_0, init_aerosol[:, :GU])
 
 	update_param!(m, :ch4_cycle, :ch4_0, init_ch4[1,:concentration])
 	update_param!(m, :ch4_cycle, :R0_ch4, vec(Matrix(init_ch4[!, [:R1, :R2, :R3, :R4]])))
@@ -115,9 +123,15 @@ function create_nice2020()
 	update_param!(m, :grosseconomy, :share, 0.3)
 
 	# --------------------------------
+	# Environment
+	# --------------------------------
+
+	update_param!(m, :environment, :Env0, Env0)
+
+	# --------------------------------
 	# Abatement
 	# --------------------------------
-	
+
 	update_param!(m, :abatement, :control_regime, 3)  #  1:"global_carbon_tax", 2:"country_carbon_tax", 3:"country_abatement_rate"
 	update_param!(m, :abatement, :global_carbon_tax, zeros(length(dim_keys(m, :time))))
 	update_param!(m, :abatement, :reference_carbon_tax, zeros(length(dim_keys(m, :time))))
@@ -130,12 +144,11 @@ function create_nice2020()
 	connect_param!(m, :abatement, :l, :l)
 	connect_param!(m, :abatement, :η, :η)
 	connect_param!(m, :abatement, :σ, :σ)
-
 	# --------------------------------
 	# CO2 Emissions
 	# --------------------------------
 
-	connect_param!(m, :emissions, :mapcrwpp,  :mapcrwpp) 
+	connect_param!(m, :emissions, :mapcrwpp,  :mapcrwpp)
 	connect_param!(m, :emissions, :σ, :σ)
 
 	# --------------------------------
@@ -159,7 +172,7 @@ function create_nice2020()
 
 	connect_param!(m, :neteconomy, :s, :s)
 	connect_param!(m, :neteconomy, :l, :l)
-	connect_param!(m, :neteconomy, :mapcrwpp,  :mapcrwpp) 
+	connect_param!(m, :neteconomy, :mapcrwpp,  :mapcrwpp)
 	# --------------------------------
 	# Revenue Recycle
 	# --------------------------------
@@ -187,7 +200,7 @@ function create_nice2020()
 
 	connect_param!(m, :quantile_recycle, :switch_recycle, :switch_recycle)
 	connect_param!(m, :quantile_recycle, :l, 			:l)
-	connect_param!(m, :quantile_recycle, :mapcrwpp,  :mapcrwpp) 
+	connect_param!(m, :quantile_recycle, :mapcrwpp,  :mapcrwpp)
 	connect_param!(m, :quantile_recycle, :nb_quantile, 	:nb_quantile)
 
 	# --------------------------------
@@ -197,7 +210,9 @@ function create_nice2020()
 	connect_param!(m, :welfare, :η, :η)
 	connect_param!(m, :welfare, :nb_quantile, :nb_quantile)
 	connect_param!(m, :welfare, :l, :l)
-	connect_param!(m, :welfare, :mapcrwpp,  :mapcrwpp) 
+	connect_param!(m, :welfare, :mapcrwpp,  :mapcrwpp)
+	connect_param!(m, :welfare, :α, :α)
+	connect_param!(m, :welfare, :θ, :θ)
 
 	# --------------------------------
 	# Create Component Connections
@@ -227,6 +242,8 @@ function create_nice2020()
 	connect_param!(m, :quantile_recycle => :Y_pc,				:neteconomy 		=> :Y_pc)
 	connect_param!(m, :quantile_recycle => :country_pc_dividend,:revenue_recycle	=> :country_pc_dividend)
 	connect_param!(m, :quantile_recycle => :tax_pc_revenue,		:revenue_recycle	=> :tax_pc_revenue)
+	connect_param!(m, :welfare 			=> :Env, 				:environment		=> :Env)
+	connect_param!(m, :welfare 			=> :E_bar, 				:environment		=> :E_bar)
 	connect_param!(m, :welfare 			=> :qcpc_post_recycle, 	:quantile_recycle	=> :qcpc_post_recycle)
 
 	# Return model.
