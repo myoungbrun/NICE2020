@@ -46,6 +46,8 @@
             elseif (p.control_regime==2) #country_carbon_tax
 
                 # Expression to compute carbon tax of every country from carbon tax of reference country
+                # Follows a simple rule for optimally differentiated taxes (see SI in Young-Brun et al. (in prep.))
+                # tax_it = (1-savings_it)/(1-savings_ref,t) * u'(c_ref,t) / u'(c_it) * tax_ref,t
                 # Carbon tax is bounded above by the global backstop price
 
                 v.country_carbon_tax[t,c] = min(p.pbacktime[t], p.reference_carbon_tax[t] *
