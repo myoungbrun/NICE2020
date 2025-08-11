@@ -4,7 +4,7 @@
 
 
 @defcomp grosseconomy begin
-    country = Index()                           #Note that a regional index is defined here
+    country = Index()                           # Index for countries
 
     I       = Parameter(index=[time, country]) 	# Investment (1e6 USD2017 per year)
     l       = Parameter(index=[time, country])  # Labor - population (thousands)
