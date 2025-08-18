@@ -18,7 +18,6 @@
     K       = Variable(index=[time, country])   # Capital (1e6 USD2017)
 
     function run_timestep(p, v, d, t)
-    # Note that the country dimension is defined in d and parameters and variables are indexed by 'c'
 
         # Define an equation for K
         for c in d.country
